@@ -13,5 +13,10 @@ namespace NewsFeedVn.Controllers
         {
             return View("~/Views/Backend/Dashboard.cshtml");
         }
+
+        public ActionResult IndexFrontend()
+        {
+            return View("~/Views/Frontend/Home.cshtml");
+        }
     }
 }
