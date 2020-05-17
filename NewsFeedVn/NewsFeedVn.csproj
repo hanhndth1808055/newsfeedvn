@@ -381,6 +381,8 @@
     <Content Include="Views\Backend\Layout\_Layout.cshtml" />
     <Content Include="Views\Frontend\Layout\_Layout.cshtml" />
     <Content Include="Views\Frontend\Home.cshtml" />
+    <Content Include="Views\Backend\DemoForm.cshtml" />
+    <Content Include="Views\Backend\DemoForm2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
