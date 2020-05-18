@@ -20,6 +20,7 @@ namespace NewsFeedVn.Models
         [Display(Name = "Category ID")]
         [Required]
         public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
