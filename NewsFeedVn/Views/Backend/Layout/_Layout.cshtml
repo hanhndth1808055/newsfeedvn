@@ -53,6 +53,10 @@
         ============================================ -->
     <link rel="stylesheet" href="~/kiaalap-master/css/calendar/fullcalendar.min.css">
     <link rel="stylesheet" href="~/kiaalap-master/css/calendar/fullcalendar.print.min.css">
+
+    <!-- Css in page -->
+    @RenderSection("AddCss", required: false)
+
     <!-- style CSS
         ============================================ -->
     <link rel="stylesheet" href="~/kiaalap-master/style.css">
@@ -85,7 +89,7 @@
                             </a>
                         </li>
                         <li>
-                            <a title="Landing Page" href="~/kiaalap-master/events.html" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Sources</span></a>
+                            <a title="Landing Page" href="@Url.Action("IndexBackend", "TestTheme")" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non">Sources</span></a>
                         </li>
                         <li>
                             <a class="has-arrow" href="~/kiaalap-master/all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">Categories</span></a>
@@ -1059,6 +1063,7 @@
 
         @RenderBody()
 
+
         <!-- \Main Page Content -->
 
         <div class="footer-copyright-area">
@@ -1098,11 +1103,7 @@
     <!-- scrollUp JS
         ============================================ -->
     <script src="~/kiaalap-master/js/jquery.scrollUp.min.js"></script>
-    <!-- counterup JS
-        ============================================ -->
-    <script src="~/kiaalap-master/js/counterup/jquery.counterup.min.js"></script>
-    <script src="~/kiaalap-master/js/counterup/waypoints.min.js"></script>
-    <script src="~/kiaalap-master/js/counterup/counterup-active.js"></script>
+    
     <!-- mCustomScrollbar JS
         ============================================ -->
     <script src="~/kiaalap-master/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -1111,21 +1112,10 @@
         ============================================ -->
     <script src="~/kiaalap-master/js/metisMenu/metisMenu.min.js"></script>
     <script src="~/kiaalap-master/js/metisMenu/metisMenu-active.js"></script>
-    <!-- morrisjs JS
-        ============================================ -->
-    <script src="~/kiaalap-master/js/morrisjs/raphael-min.js"></script>
-    <script src="~/kiaalap-master/js/morrisjs/morris.js"></script>
-    <script src="~/kiaalap-master/js/morrisjs/morris-active.js"></script>
-    <!-- morrisjs JS
-        ============================================ -->
-    <script src="~/kiaalap-master/js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="~/kiaalap-master/js/sparkline/jquery.charts-sparkline.js"></script>
-    <script src="~/kiaalap-master/js/sparkline/sparkline-active.js"></script>
-    <!-- calendar JS
-        ============================================ -->
-    <script src="~/kiaalap-master/js/calendar/moment.min.js"></script>
-    <script src="~/kiaalap-master/js/calendar/fullcalendar.min.js"></script>
-    <script src="~/kiaalap-master/js/calendar/fullcalendar-active.js"></script>
+
+    <!-- Js in page -->
+    @RenderSection("Addscripts", required: false)
+
     <!-- plugins JS
         ============================================ -->
     <script src="~/kiaalap-master/js/plugins.js"></script>
