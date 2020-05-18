@@ -388,6 +388,7 @@
     <Content Include="Views\Frontend\Home.cshtml" />
     <Content Include="Views\Backend\DemoForm.cshtml" />
     <Content Include="Views\Backend\DemoForm2.cshtml" />
+    <Content Include="Views\Backend\DemoDatatable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
