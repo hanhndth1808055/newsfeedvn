@@ -17,8 +17,7 @@ namespace NewsFeedVn.Models
         //Category
         [ForeignKey("Category")]
         [Display(Name = "Category ID")]
-        [Required]
-        public int CategoryID { get; set; }
+        public int? CategoryID { get; set; }
         public virtual Category Category { get; set; }
         [Display(Name = "Link Selector")]
         [Required]

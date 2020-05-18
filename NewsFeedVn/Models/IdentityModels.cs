@@ -21,7 +21,7 @@ namespace NewsFeedVn.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("name=ApplicationDbContext")
         {
         }
 
@@ -29,5 +29,12 @@ namespace NewsFeedVn.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<NewsFeedVn.Models.Category> Categories { get; set; }
+        public System.Data.Entity.DbSet<NewsFeedVn.Models.Source> Sources { get; set; }
+        public System.Data.Entity.DbSet<NewsFeedVn.Models.Article> Articles { get; set; }
+        public System.Data.Entity.DbSet<NewsFeedVn.Models.Comment> Comments { get; set; }
+        public System.Data.Entity.DbSet<NewsFeedVn.Models.QuestionAndAnswer> QuestionAndAnswers { get; set; }
+        public System.Data.Entity.DbSet<NewsFeedVn.Models.Subscriber> Subscribers { get; set; }
     }
 }
