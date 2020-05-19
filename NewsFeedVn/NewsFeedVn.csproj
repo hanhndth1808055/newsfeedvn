@@ -407,6 +407,7 @@
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Client\ClientTest.cshtml" />
     <Content Include="Views\Frontend\Post.cshtml" />
+    <Content Include="Views\Frontend\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
