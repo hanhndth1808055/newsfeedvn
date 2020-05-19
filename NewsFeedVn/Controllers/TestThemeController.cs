@@ -38,5 +38,10 @@ namespace NewsFeedVn.Controllers
         {
             return View("~/Views/Frontend/Contact.cshtml");
         }
+
+        public ActionResult CategoryClient()
+        {
+            return View("~/Views/Frontend/Category.cshtml");
+        }
     }
 }
