@@ -12,7 +12,10 @@
     <link rel="stylesheet" type="text/css" href="~/avision/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
     <link rel="stylesheet" type="text/css" href="~/avision/plugins/OwlCarousel2-2.2.1/animate.css">
     <link rel="stylesheet" type="text/css" href="~/avision/plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.css">
-    <link rel="stylesheet" type="text/css" href="~/avision/styles/main_styles.css">
+
+    <!-- Css in page -->
+    @RenderSection("AddCss", required: false)
+
     <link rel="stylesheet" type="text/css" href="~/avision/styles/responsive.css">
 </head>
 <body>
@@ -152,6 +155,38 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 									</svg>
                                     </button>
                                 </form>
@@ -170,8 +205,10 @@
     <script src="~/avision/plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.js"></script>
     <script src="~/avision/plugins/easing/easing.js"></script>
     <script src="~/avision/plugins/masonry/masonry.js"></script>
-    <script src="~/avision/plugins/masonry/images_loaded.js"></script>
-    <script src="~/avision/js/custom.js"></script>
+
+    <!-- Js in page -->
+    @RenderSection("Addscripts", required: false)
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
