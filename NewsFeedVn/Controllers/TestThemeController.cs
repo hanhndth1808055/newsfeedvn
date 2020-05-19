@@ -28,5 +28,20 @@ namespace NewsFeedVn.Controllers
         {
             return View("~/Views/Backend/DemoDatatable.cshtml");
         }
+
+        public ActionResult DetailPost()
+        {
+            return View("~/Views/Frontend/Post.cshtml");
+        }
+
+        public ActionResult ContactClient()
+        {
+            return View("~/Views/Frontend/Contact.cshtml");
+        }
+
+        public ActionResult CategoryClient()
+        {
+            return View("~/Views/Frontend/Category.cshtml");
+        }
     }
 }
