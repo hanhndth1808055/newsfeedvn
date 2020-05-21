@@ -55,9 +55,9 @@ namespace NewsFeedVn
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "278136670023691",
+               appSecret: "161d3ff6a0276f3761b5714a2de6f612");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
