@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
-using System.EnterpriseServices.Internal;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -14,19 +12,17 @@ using NewsFeedVn.Models;
 
 namespace NewsFeedVn.Controllers
 {
-    public class SourcesController : ApiController
+    public class SourcesServiceController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Sources
+        // GET: api/SourcesService
         public IQueryable<Source> GetSources()
         {
-           
             return db.Sources;
-
         }
 
-        // GET: api/Sources/5
+        // GET: api/SourcesService/5
         [ResponseType(typeof(Source))]
         public IHttpActionResult GetSource(int id)
         {
@@ -39,7 +35,7 @@ namespace NewsFeedVn.Controllers
             return Ok(source);
         }
 
-        // PUT: api/Sources/5
+        // PUT: api/SourcesService/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutSource(int id, Source source)
         {
@@ -74,7 +70,7 @@ namespace NewsFeedVn.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Sources
+        // POST: api/SourcesService
         [ResponseType(typeof(Source))]
         public IHttpActionResult PostSource(Source source)
         {
@@ -89,7 +85,7 @@ namespace NewsFeedVn.Controllers
             return CreatedAtRoute("DefaultApi", new { id = source.Id }, source);
         }
 
-        // DELETE: api/Sources/5
+        // DELETE: api/SourcesService/5
         [ResponseType(typeof(Source))]
         public IHttpActionResult DeleteSource(int id)
         {

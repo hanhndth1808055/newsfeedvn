@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,121 +10,116 @@ using NewsFeedVn.Models;
 
 namespace NewsFeedVn.Controllers
 {
-    public class Sources1Controller : Controller
+    public class ArticlesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Sources1
+        // GET: Articles
         public ActionResult Index()
         {
-            //var sources = db.Sources.Include(s => s.Category);
-            List<Source> sources = db.Sources.ToList();
-            for (int i = 0; i < sources.Count; i++)
-            {
-                if (sources[i].Status.Equals(1))
-                {
-                    Debug.WriteLine(sources[i]);
-                }
-            };
-
-            return View(sources.ToList());
+            var articles = db.Articles.Include(a => a.Category).Include(a => a.Source);
+            return View(articles.ToList());
         }
 
-        // GET: Sources1/Details/5
+        // GET: Articles/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Source source = db.Sources.Find(id);
-            if (source == null)
+            Article article = db.Articles.Find(id);
+            if (article == null)
             {
                 return HttpNotFound();
             }
-            return View(source);
+            return View(article);
         }
 
-        // GET: Sources1/Create
+        // GET: Articles/Create
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.SourceId = new SelectList(db.Sources, "Id", "Domain");
             return View();
         }
 
-        // POST: Sources1/Create
+        // POST: Articles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Domain,Path,CategoryID,Link_selector,Content_selector,Img_selector,Status")] Source source)
+        public ActionResult Create([Bind(Include = "Id,CategoryID,SourceId,Title,Content,Status,Url,CreatedAt,EditedAt,DeletedAt")] Article article)
         {
             if (ModelState.IsValid)
             {
-                db.Sources.Add(source);
+                db.Articles.Add(article);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name", source.CategoryID);
-            return View(source);
+            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name", article.CategoryID);
+            ViewBag.SourceId = new SelectList(db.Sources, "Id", "Domain", article.SourceId);
+            return View(article);
         }
 
-        // GET: Sources1/Edit/5
+        // GET: Articles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Source source = db.Sources.Find(id);
-            if (source == null)
+            Article article = db.Articles.Find(id);
+            if (article == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name", source.CategoryID);
-            return View(source);
+            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name", article.CategoryID);
+            ViewBag.SourceId = new SelectList(db.Sources, "Id", "Domain", article.SourceId);
+            return View(article);
         }
 
-        // POST: Sources1/Edit/5
+        // POST: Articles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Domain,Path,CategoryID,Link_selector,Content_selector,Img_selector,Status")] Source source)
+        public ActionResult Edit([Bind(Include = "Id,CategoryID,SourceId,Title,Content,Status,Url,CreatedAt,EditedAt,DeletedAt")] Article article)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(source).State = EntityState.Modified;
+                db.Entry(article).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name", source.CategoryID);
-            return View(source);
+            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name", article.CategoryID);
+            ViewBag.SourceId = new SelectList(db.Sources, "Id", "Domain", article.SourceId);
+            return View(article);
         }
 
-        // GET: Sources1/Delete/5
+        // GET: Articles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Source source = db.Sources.Find(id);
-            if (source == null)
+            Article article = db.Articles.Find(id);
+            if (article == null)
             {
                 return HttpNotFound();
             }
-            return View(source);
+            return View(article);
         }
 
-        // POST: Sources1/Delete/5
+        // POST: Articles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Source source = db.Sources.Find(id);
-            db.Sources.Remove(source);
+            Article article = db.Articles.Find(id);
+            db.Articles.Remove(article);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
