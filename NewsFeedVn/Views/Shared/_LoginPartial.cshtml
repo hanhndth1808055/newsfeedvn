@@ -3,20 +3,30 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        @Html.AntiForgeryToken()
+        ///////////
+        <li class="nav-item">
+            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                <img src="https://cdn4.vectorstock.com/i/thumb-large/52/38/avatar-icon-vector-11835238.jpg" style="width: 30px; padding-left:10px" alt="" />
+                <span class="admin-name">@User.Identity.GetUserName()</span>
+                <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+            </a>
+            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                <li>
+                    @* @Html.ActionLink("My Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "edu-icon edu-home-admin author-log-ic"}) *@
+                    <a href="/Manage"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a>
+                </li>
+                <li>
+                    <a href="javascript:document.getElementById('logoutForm').submit()"><span class="edu-icon edu-locked author-log-ic"></span>Log Out</a>
+                </li>
+            </ul>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+@*     <ul class="nav navbar-nav navbar-right"> *@
+@*         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li> *@
+@*         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li> *@
+@*     </ul> *@
 }
