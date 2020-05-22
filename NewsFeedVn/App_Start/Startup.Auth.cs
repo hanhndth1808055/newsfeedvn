@@ -59,11 +59,11 @@ namespace NewsFeedVn
                appId: "278136670023691",
                appSecret: "161d3ff6a0276f3761b5714a2de6f612");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "752777367343-2csppn8bb5ofm7tn4clnvpkme9q045f1.apps.googleusercontent.com",
+                ClientSecret = "-dVFEoCRWeIxnaAvc7LwPkkz"
+            });
         }
     }
 }
