@@ -27,9 +27,9 @@ namespace NewsFeedVn.Models
         [Required]
         public ArticleStatus Status { get; set; }
         public string Url { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime EditedAt { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? EditedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public enum ArticleStatus
         {
             DEACTIVE = 0, Initial = 1 ,ACTIVE = 2, DELETE = 3

@@ -173,6 +173,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -183,6 +184,10 @@
     <Compile Include="Migrations\202005181127379_InitialDB.cs" />
     <Compile Include="Migrations\202005181127379_InitialDB.Designer.cs">
       <DependentUpon>202005181127379_InitialDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005230321383_Update-Category.cs" />
+    <Compile Include="Migrations\202005230321383_Update-Category.Designer.cs">
+      <DependentUpon>202005230321383_Update-Category.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -412,6 +417,11 @@
     <Content Include="Views\Admin\_ViewStart.cshtml" />
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -433,6 +443,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005181127379_InitialDB.resx">
       <DependentUpon>202005181127379_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005230321383_Update-Category.resx">
+      <DependentUpon>202005230321383_Update-Category.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

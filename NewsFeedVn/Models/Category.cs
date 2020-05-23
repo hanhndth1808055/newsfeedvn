@@ -9,7 +9,8 @@ namespace NewsFeedVn.Models
     public class Category
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please input this field")]
+        [MaxLength(20, ErrorMessage = "The input excesses the maximum length of 20 characters")]
         public string Name { get; set; }
     }
 }

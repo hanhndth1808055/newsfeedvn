@@ -27,10 +27,10 @@ namespace NewsFeedVn.Migrations
                 var store = new RoleStore<ApplicationRole>(context);
                 var manager = new RoleManager<ApplicationRole>(store);
                 var role = new ApplicationRole { Name = "Admin" };
-            
+
                 manager.Create(role);
             }
-            
+
             if (!context.Users.Any(u => u.UserName == "newsfeedvn"))
             {
                 var store = new UserStore<ApplicationUser>(context);
@@ -40,10 +40,45 @@ namespace NewsFeedVn.Migrations
                     UserName = "newsfeedvn",
                     Email = "newsfeedvn@yopmail.com"
                 };
-            
+
                 manager.Create(user, "Abcabc123@@");
                 manager.AddToRole(user.Id, "Admin");
             }
+            SeedingCategory(context);
+        }
+
+        private void SeedingCategory(NewsFeedVn.Models.ApplicationDbContext context)
+        {
+            //context.Database.ExecuteSqlCommand("TRUNCATE TABLE Categories");
+            Category[] categories =
+            {
+                new Category()
+                {
+                    Id = 1,
+                    Name = "Society"
+                },
+                new Category()
+                {
+                    Id = 2,
+                    Name = "Business"
+                },
+                 new Category()
+                {
+                    Id = 3,
+                    Name = "Arts"
+                },
+                  new Category()
+                {
+                    Id = 4,
+                    Name = "Technology"
+                },
+                   new Category()
+                {
+                    Id = 5,
+                    Name = "Health"
+                }
+            };
+            context.Categories.AddOrUpdate(categories);
         }
     }
 }
