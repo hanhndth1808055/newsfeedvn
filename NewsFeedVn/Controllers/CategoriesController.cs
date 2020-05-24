@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NewsFeedVn.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace NewsFeedVn.Controllers
 {
@@ -113,6 +116,33 @@ namespace NewsFeedVn.Controllers
             db.Categories.Remove(category);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // POST: Categories/DeleteArrayConfirmed
+        [HttpPost]
+        public ActionResult DeleteArrayConfirmed(string[] idArray)
+        {
+            try
+            {
+                Debug.WriteLine(idArray.GetType());
+
+                // Debug.WriteLine(idArray[0]);
+                // Debug.WriteLine(idArray[1]);
+                foreach (var id in idArray)
+                {
+                    var currentId = Int32.Parse(id);
+                    Category category = db.Categories.Find(currentId);
+                    db.Categories.Remove(category);
+                }
+                db.SaveChanges();
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+            
         }
 
         protected override void Dispose(bool disposing)
