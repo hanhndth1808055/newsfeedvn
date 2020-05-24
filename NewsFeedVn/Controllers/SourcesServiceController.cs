@@ -17,9 +17,9 @@ namespace NewsFeedVn.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/SourcesService
-        public IQueryable<Source> GetSources()
+        public List<Source> GetSources()
         {
-            return db.Sources;
+            return db.Sources.ToList();
         }
 
         // GET: api/SourcesService/5

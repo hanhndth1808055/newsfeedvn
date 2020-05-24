@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using NewsFeedVn.Models;
+using NewsFeedVn.service;
 
 namespace NewsFeedVn.Controllers
 {
@@ -17,9 +18,9 @@ namespace NewsFeedVn.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ArticlesService
-        public IQueryable<Article> GetArticles()
+        public List<Article> GetArticles()
         {
-            return db.Articles;
+            return db.Articles.ToList();
         }
 
         // GET: api/ArticlesService/5
@@ -114,5 +115,6 @@ namespace NewsFeedVn.Controllers
         {
             return db.Articles.Count(e => e.Id == id) > 0;
         }
+        
     }
 }

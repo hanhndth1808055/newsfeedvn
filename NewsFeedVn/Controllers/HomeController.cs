@@ -14,7 +14,7 @@ namespace NewsFeedVn.Controllers
     {
         public ActionResult Index()
         {
-            RunProgramRunExample();
+            //RunProgramRunExample();
             return View();
         }
         private static async Task RunProgramRunExample()
