@@ -22,6 +22,9 @@ namespace NewsFeedVn.Models
         [Display(Name = "Link Selector")]
         [Required]
         public string Link_selector { get; set; }
+        [Display(Name = "Title Selector")]
+        [Required]
+        public string Title_selector { get; set; }
         [Display(Name = "Content Selector")]
         [Required]
         public string Content_selector { get; set; }
@@ -31,8 +34,20 @@ namespace NewsFeedVn.Models
         public SourceStatus Status { get; set; }
         public enum SourceStatus
         {
-            DEACTIVE = 0, ACTIVE = 1,  DELETE = 2
+            DEACTIVE = 0, ACTIVE = 1, DELETE = 2
 
+        }
+        public String toString()
+        {
+            return "sourdeID: " + Id +
+                    ", Domain: " + Domain +
+                    ", Path: " + Path +
+                    ", CategoryID: " + CategoryID +
+                    ", Link_selector: " + Link_selector +
+                    ", Title_selector: " + Title_selector +
+                    ", Content_selector: " + Content_selector +
+                    ", Img_selector: " + Img_selector +
+                    ", Status: " + Status.ToString();
         }
     }
 }
