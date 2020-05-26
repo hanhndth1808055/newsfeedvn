@@ -80,5 +80,35 @@ namespace NewsFeedVn.Migrations
             };
             context.Categories.AddOrUpdate(categories);
         }
+        private void SeedingSource(NewsFeedVn.Models.ApplicationDbContext context)
+        {
+            Source[] sources =
+            {
+                new Source()
+                {
+                    Id = 1,
+                    Domain = "http://1000wordsphotographymagazine.blogspot.com/",
+                    Path = "http://allrecipes.com.au/recipes/tag-5677/milk-drink.aspx?page=2&o_is=LV_Pgntn"
+                },
+                new Source()
+                {
+                    Id = 2,
+                    Domain = "http://1000wordsphotographymagazine.blogspot.com/",
+                    Path = "http://allrecipes.com.au/recipes/tag-5677/milk-drink.aspx?page=2&o_is=LV_Pgntn"
+                },
+                new Source()
+                {
+                    Id = 3,
+                    Domain = "http://1000wordsphotographymagazine.blogspot.com/",
+                    Path = "http://allrecipes.com.au/recipes/tag-5677/milk-drink.aspx?page=2&o_is=LV_Pgntn"
+                },
+                new Source()
+                {
+                    Id = 4,
+                    Domain = "http://1000wordsphotographymagazine.blogspot.com/",
+                    Path = "http://allrecipes.com.au/recipes/tag-5677/milk-drink.aspx?page=2&o_is=LV_Pgntn"
+                },
+            };
+        }
     }
 }
