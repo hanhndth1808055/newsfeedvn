@@ -7,6 +7,7 @@ using System.Web;
 
 namespace NewsFeedVn.Models
 {
+
     public class Article
     {
         public int Id { get; set; }
@@ -24,6 +25,7 @@ namespace NewsFeedVn.Models
         public virtual Source Source { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public string Img { get; set; }
         [Required]
         public ArticleStatus Status { get; set; }
         public string Url { get; set; }
@@ -32,7 +34,14 @@ namespace NewsFeedVn.Models
         public DateTime? DeletedAt { get; set; }
         public enum ArticleStatus
         {
-            DEACTIVE = 0, Initial = 1 ,ACTIVE = 2, DELETE = 3
+            DEACTIVE = 0, Initial = 1, ACTIVE = 2, DELETE = 3
+        }
+        public String toString()
+        {
+            return "ArticleId: " + Id +
+                ", SourceId: " + SourceId +
+                ", Title: " + Title +
+                ", Content: " + Content;
         }
     }
 }

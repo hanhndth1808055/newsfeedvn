@@ -1,0 +1,210 @@
+﻿@model IEnumerable<NewsFeedVn.Models.Source>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Backend/Layout/_Layout.cshtml";
+}
+
+
+@section AddCss{
+    <!-- x-editor CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/editor/select2.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/editor/datetimepicker.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/editor/bootstrap-editable.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/editor/x-editor-style.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/kiaalap-master/css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="~/kiaalap-master/css/data-table/bootstrap-editable.css">
+}
+<!-- Static Table Start -->
+<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="sparkline13-list">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1>Categories</h1>
+                            <p>
+                                @Html.ActionLink("Create New", "Create")
+                            </p>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+                        <div class="datatable-dashv1-list custom-datatable-overright">
+                            <div id="toolbar">
+                                <select class="form-control dt-tb">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                   data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="id">ID</th>
+                                        <th data-field="name" data-editable="true">domain</th>
+                                        <th data-field="path" data-editable="true">path</th>
+                                        <th data-field="action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Domain)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Path)
+                                        </td>
+                                        <td class="datatable-ct">
+                                            @Html.ActionLink(" ", "Details", new { Id = item.Id }, new { @class = "glyphicon glyphicon-info-sign" }) |
+                                            @Html.ActionLink(" ", "Edit", new { Id = item.Id }, new { @class = "glyphicon glyphicon-edit" }) |
+                                            @Html.ActionLink(" ", "Delete", new { Id = item.Id }, new { onclick = "return confirm('Are you sure you wish to delete this category?');", @class = "glyphicon glyphicon-trash" })
+                                        </td>
+
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <button style="margin-bottom: 40px; margin-top: 10px; font-family: 'Roboto', sans-serif;" id="deleteAll" type="button" class="btn btn-primary waves-effect waves-light">Delete Selected</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Addscripts{
+    <!-- data table JS
+    ============================================ -->
+    <script src="~/kiaalap-master/js/data-table/bootstrap-table.js"></script>
+    <script src="~/kiaalap-master/js/data-table/tableExport.js"></script>
+    <script src="~/kiaalap-master/js/data-table/data-table-active.js"></script>
+    <script src="~/kiaalap-master/js/data-table/bootstrap-table-editable.js"></script>
+    <script src="~/kiaalap-master/js/data-table/bootstrap-editable.js"></script>
+    <script src="~/kiaalap-master/js/data-table/bootstrap-table-resizable.js"></script>
+    <script src="~/kiaalap-master/js/data-table/colResizable-1.5.source.js"></script>
+    <script src="~/kiaalap-master/js/data-table/bootstrap-table-export.js"></script>
+    <!--  editable JS
+    ============================================ -->
+    <script src="~/kiaalap-master/js/editable/jquery.mockjax.js"></script>
+    <script src="~/kiaalap-master/js/editable/mock-active.js"></script>
+    <script src="~/kiaalap-master/js/editable/select2.js"></script>
+    <script src="~/kiaalap-master/js/editable/moment.min.js"></script>
+    <script src="~/kiaalap-master/js/editable/bootstrap-datetimepicker.js"></script>
+    <script src="~/kiaalap-master/js/editable/bootstrap-editable.js"></script>
+    <script src="~/kiaalap-master/js/editable/xediable-active.js"></script>
+    <!-- Chart JS
+    ============================================ -->
+    <script src="~/kiaalap-master/js/chart/jquery.peity.min.js"></script>
+    <script src="~/kiaalap-master/js/peity/peity-active.js"></script>
+    <!-- tab JS
+    ============================================ -->
+    <script src="~/kiaalap-master/js/tab.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var idArray = [];
+
+            $("#deleteAll").click(function() {
+                var myRows = document.querySelectorAll("tr.selected");
+                myRows.forEach(myFunction);
+                if (confirm('Are you sure ?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteArrayConfirmed", "Categories")',
+                        traditional: true,
+                        data: { 'idArray': idArray }
+                    });
+                    $(myRows).remove();
+                };
+            });
+
+            function myFunction(v, i, a) {
+                idArray.push(v.firstChild.nextSibling.nextSibling.nextSibling.innerText);
+            };
+        });
+    </script>
+}
+
+
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Domain)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Path)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Link_selector)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title_selector)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content_selector)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Img_selector)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Domain)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link_selector)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title_selector)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content_selector)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Img_selector)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@
