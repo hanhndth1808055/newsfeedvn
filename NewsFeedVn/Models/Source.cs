@@ -21,32 +21,36 @@ namespace NewsFeedVn.Models
         public virtual Category Category { get; set; }
         [Display(Name = "Link Selector")]
         [Required]
-        public string Link_selector { get; set; }
+        public string LinkSelector { get; set; }
         [Display(Name = "Title Selector")]
         [Required]
-        public string Title_selector { get; set; }
+        public string TitleSelector { get; set; }
+        [Display(Name = "Description Selector")]
+        [Required]
+        public string DescriptionSelector { get; set; }
         [Display(Name = "Content Selector")]
         [Required]
-        public string Content_selector { get; set; }
-        [Display(Name = "Image Selector")]
+        public string ContentSelector { get; set; }
+        [Display(Name = "Removal Selector")]
         [Required]
-        public string Img_selector { get; set; }
+        public string RemovalSelector { get; set; }
         public SourceStatus Status { get; set; }
         public enum SourceStatus
         {
-            DEACTIVE = 0, ACTIVE = 1,  DELETE = 2
+            DEACTIVE = 0, ACTIVE = 1, DELETE = 2
 
         }
         public String toString()
         {
-            return "sourdeID: " + Id +
+            return "SourceID: " + Id +
                     ", Domain: " + Domain +
                     ", Path: " + Path +
                     ", CategoryID: " + CategoryID +
-                    ", Link_selector: " + Link_selector +
-                    ", Title_selector: " + Title_selector +
-                    ", Content_selector: " + Content_selector +
-                    ", Img_selector: " + Img_selector +
+                    ", LinkSelector: " + LinkSelector +
+                    ", TitleSelector: " + TitleSelector +
+                    ", DescriptionSelector: " + DescriptionSelector +
+                    ", ContentSelector: " + ContentSelector +
+                    ", RemovalSelector: " + RemovalSelector +
                     ", Status: " + Status.ToString();
         }
     }

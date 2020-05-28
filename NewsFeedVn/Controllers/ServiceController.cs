@@ -1,4 +1,5 @@
-﻿using NewsFeedVn.service;
+﻿using NewsFeedVn.Models;
+using NewsFeedVn.service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,10 @@ namespace NewsFeedVn.Controllers
         [HttpGet]
         public IHttpActionResult StartDataDetail()
         {
-            bot2 bot2_serrvice = new bot2();
+            Boot2 bot2_serrvice = new Boot2();
             try
             {
-                bot2_serrvice.getDataDetail();
+                bot2_serrvice.GetDataDetail();
                 return Ok();
             }
             catch (Exception ex)
@@ -36,7 +37,7 @@ namespace NewsFeedVn.Controllers
         [HttpGet]
         public IHttpActionResult StartGetUrl()
         {
-            bot1 bot1_serrvice = new bot1();
+            Boot1 bot1_serrvice = new Boot1();
             try
             {
                 bot1_serrvice.getData();
@@ -46,7 +47,21 @@ namespace NewsFeedVn.Controllers
             {
                 return Exception(ex.Message);
             }
-
+        }
+        [Route("api/Service/reviewData")]
+        [HttpPost]
+        public IHttpActionResult RevirewData(Source source)
+        {
+            Boot1 bot1_serrvice = new Boot1();
+            try
+            {
+                Article article= bot1_serrvice.ReviewData(source);
+                return Ok(article);
+            }
+            catch (Exception ex)
+            {
+                return Exception(ex.Message);
+            }
         }
     }
 }

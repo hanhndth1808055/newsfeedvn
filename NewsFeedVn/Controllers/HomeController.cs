@@ -14,17 +14,20 @@ namespace NewsFeedVn.Controllers
     {
         public ActionResult Index()
         {
-            //RunProgramRunExample();
+            //Runbot1();
+            //RunBot2()
             return View();
         }
-        private static async Task RunProgramRunExample()
+        private static async Task Runbot1()
         {
             IScheduler scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             scheduler.Start();
-            IJobDetail job = JobBuilder.Create<bot1>().Build();
+            IJobDetail job = JobBuilder.Create<Boot1>().Build();
             ITrigger trigger = TriggerBuilder.Create()
                 .WithDailyTimeIntervalSchedule
                   (s =>
+                  //config run with 1 time/day
+                  //s.WithIntervalInHours(24)
                      s.WithIntervalInSeconds(10)
                     .OnEveryDay()
                     .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
@@ -32,6 +35,22 @@ namespace NewsFeedVn.Controllers
                 .Build();
             scheduler.ScheduleJob(job, trigger);
         }
+        private static async Task RunBot2()
+        {
+            IScheduler scheduler = await StdSchedulerFactory.GetDefaultScheduler();
+            scheduler.Start();
+            IJobDetail job = JobBuilder.Create<Boot2>().Build();
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithDailyTimeIntervalSchedule
+                  (s =>
+                     s.WithIntervalInSeconds(60)
+                    .OnEveryDay()
+                    .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(0, 0))
+                  )
+                .Build();
+            scheduler.ScheduleJob(job, trigger);
+        }
+
 
         public ActionResult About()
         {

@@ -14,20 +14,20 @@ using static NewsFeedVn.Models.Article;
 
 namespace NewsFeedVn.service
 {
-    public class bot2 : IJob
+    public class Boot2 : IJob
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         public Task Execute(IJobExecutionContext context)
         {
             var task = Task.Run(() =>
             {
-                getDataDetail();
+                GetDataDetail();
 
             });
             return task;
         }
 
-        public void getDataDetail()
+        public void GetDataDetail()
         {
             Debug.WriteLine("start get Detail news");
             try
@@ -51,12 +51,11 @@ namespace NewsFeedVn.service
                         var page = document.DocumentNode;
 
                         Source source = db.Sources.Find(articles[i].SourceId);
-                        Debug.WriteLine(source.Title_selector);
+                        Debug.WriteLine(source.TitleSelector);
                         try
                         {
-                            String title = page.QuerySelector(source.Title_selector).InnerText;
-                            String content = page.QuerySelector(source.Content_selector).InnerText;
-                            String img_link = page.QuerySelector(source.Img_selector).InnerText;
+                            String title = page.QuerySelector(source.TitleSelector).InnerText;
+                            String content = page.QuerySelector(source.ContentSelector).InnerText;
                             if (title != null && title != "" &&
                                 content != null && content != "")
                             {
@@ -64,7 +63,6 @@ namespace NewsFeedVn.service
                                 Debug.WriteLine(content);
                                 articles[i].Title = title;
                                 articles[i].Content = content;
-                                articles[i].Img = img_link;
                                 articles[i].Status = ArticleStatus.ACTIVE;
                                 articles[i].EditedAt = DateTime.Now;
                             }
