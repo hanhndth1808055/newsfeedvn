@@ -431,6 +431,7 @@
     <Content Include="Views\Sources\Details.cshtml" />
     <Content Include="Views\Sources\Edit.cshtml" />
     <Content Include="Views\Sources\Index.cshtml" />
+    <Content Include="Views\Sources\AddNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

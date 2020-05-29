@@ -128,5 +128,11 @@ namespace NewsFeedVn.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult AddNew()
+        {
+            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name");
+            return View();
+        }
     }
 }
