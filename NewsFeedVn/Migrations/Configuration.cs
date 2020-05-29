@@ -1,3 +1,4 @@
+
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NewsFeedVn.Models;
@@ -22,6 +23,7 @@ namespace NewsFeedVn.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<ApplicationRole>(context);
@@ -75,6 +77,7 @@ namespace NewsFeedVn.Migrations
                 }
             };
             context.Categories.AddOrUpdate(categories);
+
         }
     }
 }
