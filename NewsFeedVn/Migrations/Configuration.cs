@@ -29,7 +29,6 @@ namespace NewsFeedVn.Migrations
                 var store = new RoleStore<ApplicationRole>(context);
                 var manager = new RoleManager<ApplicationRole>(store);
                 var role = new ApplicationRole {Name = "Admin"};
-
                 manager.Create(role);
             }
 
