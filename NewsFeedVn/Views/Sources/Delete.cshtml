@@ -2,15 +2,16 @@
 
 @{
     ViewBag.Title = "Delete";
+    Layout = "~/Views/Backend/Layout/_Layout.cshtml";
 }
 
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<div>
+<div  style="margin-bottom: 50px;">
     <h4>Source</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" >
         <dt>
             @Html.DisplayNameFor(model => model.Category.Name)
         </dt>
@@ -36,35 +37,35 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Link_selector)
+            @Html.DisplayNameFor(model => model.LinkSelector)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Link_selector)
+            @Html.DisplayFor(model => model.LinkSelector)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Title_selector)
+            @Html.DisplayNameFor(model => model.TitleSelector)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title_selector)
+            @Html.DisplayFor(model => model.TitleSelector)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Content_selector)
+            @Html.DisplayNameFor(model => model.ContentSelector)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Content_selector)
+            @Html.DisplayFor(model => model.ContentSelector)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Img_selector)
+            @Html.DisplayNameFor(model => model.RemovalSelector)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Img_selector)
+            @Html.DisplayFor(model => model.RemovalSelector)
         </dd>
 
         <dt>

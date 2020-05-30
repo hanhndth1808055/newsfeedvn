@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Backend/Layout/_Layout.cshtml";
 }
 
 <h2>Details</h2>
@@ -9,7 +10,7 @@
 <div>
     <h4>Source</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal"  style="margin-bottom: 50px;">
         <dt>
             @Html.DisplayNameFor(model => model.Category.Name)
         </dt>

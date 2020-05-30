@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using NewsFeedVn.Models;
 
 namespace NewsFeedVn.Controllers
@@ -17,17 +19,17 @@ namespace NewsFeedVn.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var usersWithRoles = (from user in db.Users
-                                  from userRole in user.Roles
-                                  join role in db.Roles on userRole.RoleId equals
-                                  role.Id
+            var usersWithRoles = (from applicationUser in db.Users
+                                  from userRole in applicationUser.Roles
+                                  join role in db.Roles on userRole.RoleId equals role.Id
                                   select new UserViewModel()
                                   {
-                                      Id = user.Id,
-                                      UserName = user.UserName,
-                                      Email = user.Email,
-                                      PhoneNumber = user.PhoneNumber,
-                                      Role = role.Name
+                                      Id = applicationUser.Id,
+                                      UserName = applicationUser.UserName,
+                                      Email = applicationUser.Email,
+                                      PhoneNumber = applicationUser.PhoneNumber,
+                                      Role = role.Name,
+                                      Status = applicationUser.LockoutEnabled
                                   }).ToList();
             return View(usersWithRoles);
         }
@@ -44,13 +46,16 @@ namespace NewsFeedVn.Controllers
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
-        }
-
-        // GET: Users/Create
-        public ActionResult Create()
-        {
-            return View();
+            var userViewModel = new UserViewModel()
+            {
+                Id = applicationUser.Id,
+                Email = applicationUser.Email,
+                UserName = applicationUser.UserName,
+                PhoneNumber = applicationUser.PhoneNumber,
+                Role = db.Roles.Find(applicationUser.Roles.FirstOrDefault().RoleId).Name,
+                Status = applicationUser.LockoutEnabled
+            };
+            return View(userViewModel);
         }
 
         // POST: Users/Create
@@ -73,6 +78,7 @@ namespace NewsFeedVn.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(string id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -82,7 +88,21 @@ namespace NewsFeedVn.Controllers
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+            var allRoles = db.Roles.ToList();
+            var userViewModel = new UserViewModel()
+            {
+                Id = applicationUser.Id,
+                Email = applicationUser.Email,
+                UserName = applicationUser.UserName,
+                PhoneNumber = applicationUser.PhoneNumber,
+                Role = db.Roles.Find(applicationUser.Roles.FirstOrDefault().RoleId).Name,
+                RolesList = allRoles.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Name
+                })
+            };
+            return View(userViewModel);
         }
 
         // POST: Users/Edit/5
@@ -90,15 +110,25 @@ namespace NewsFeedVn.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,Email,UserName,Role")] UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
+                ApplicationUser applicationUser = db.Users.Find(userViewModel.Id);
+                applicationUser.Email = userViewModel.Email;
+                applicationUser.UserName = userViewModel.UserName;
+                var oldRoleId = db.Roles.Find(applicationUser.Roles.FirstOrDefault().RoleId).Id;
+                if (userViewModel.Role != oldRoleId)
+                {
+                    var newRoleId = db.Roles.SingleOrDefault(m => m.Id == userViewModel.Role).Id;
+                    applicationUser.Roles.FirstOrDefault().RoleId = newRoleId;
+                    userViewModel.Role = db.Roles.SingleOrDefault(m => m.Id == newRoleId).Name;
+                }
                 db.Entry(applicationUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(applicationUser);
+            return View(userViewModel);
         }
 
         // GET: Users/Delete/5
@@ -113,7 +143,39 @@ namespace NewsFeedVn.Controllers
             {
                 return HttpNotFound();
             }
-            return View(applicationUser);
+            var usersWithRole = new UserViewModel()
+            {
+                Id = applicationUser.Id,
+                Email = applicationUser.Email,
+                UserName = applicationUser.UserName,
+                PhoneNumber = applicationUser.PhoneNumber,
+                Role = db.Roles.Find(applicationUser.Roles.FirstOrDefault().RoleId).Name,
+            };
+            return View(usersWithRole);
+        }
+
+        // GET: Users/UpdateStatus/5
+        public ActionResult UpdateStatus(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser applicationUser = db.Users.Find(id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+            if (applicationUser.LockoutEnabled)
+            {
+                applicationUser.LockoutEnabled = false;
+            }
+            else
+            {
+                applicationUser.LockoutEnabled = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: Users/Delete/5
