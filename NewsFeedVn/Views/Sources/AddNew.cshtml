@@ -7,6 +7,10 @@
 
 <h2>AddNew</h2>
 
+<div class="alert" id="alert-source">
+    <strong id="alert-message"></strong>
+</div>
+
 @using (Html.BeginForm(new { @class = "form-source" }))
 {
     @Html.AntiForgeryToken()
@@ -191,16 +195,19 @@
                                         <div class="modal-body">
                                             <h2>Article Content</h2>
                                             <p>URL list as crawled from the source</p>
+                                            
+                                            <div class="preview-article-body"></div>
                                             <table class="table table-striped" style="table-layout: fixed; width: 100%">
                                                 <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>URL</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>URL</th>
+                                                </tr>
                                                 </thead>
-                                                <tbody class="preview-first-article">
+                                                <tbody class="">
                                                 </tbody>
                                             </table>
+
                                         </div>
 
                                         <!-- Modal footer -->
@@ -220,11 +227,11 @@
 
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+        @* <div class="form-group"> *@
+        @*     <div class="col-md-offset-2 col-md-10"> *@
+        @*         <input type="submit" value="Create" class="btn btn-default" /> *@
+        @*     </div> *@
+        @* </div> *@
     </div>
 }
 
@@ -304,6 +311,99 @@
 //                        $('#myModal').modal('show');
 //                    }
 //                });
+            });
+
+            $('.preview-first-article').click(function(event) {
+
+                event.preventDefault();
+
+//                console.log($('.source-domain').value);
+                // AJAX request
+                var request = $.ajax({
+                    url: 'https://dataservicesem3.azurewebsites.net/api/Service/reviewData',
+                    type: 'POST',
+                    crossDomain: true,
+//                    dataType: 'application/json',
+                    data:
+                    {
+                        Domain: $('#Domain').val(),
+                        Path: $('#Path').val(),
+                        CategoryID: $('#CategoryID').val(),
+                        LinkSelector: $('#LinkSelector').val(),
+                        TitleSelector: $('#TitleSelector').val(),
+                        ContentSelector: $('#ContentSelector').val(),
+                        DescriptionSelector: $('#DescriptionSelector').val(),
+                        RemovalSelector: $('#RemovalSelector').val(),
+                        Status: 1
+                    }
+                });
+
+                request.done(function(response) {
+                    console.log(response);
+                    console.log(jQuery.type(response));
+                    var content = "";
+                    jQuery.each( response, function( i, val ) {
+                        content += "<tr><td style='width:20%'>"+ i +"</td><td style='word-wrap: break-word; width:80%'><a href="+val+">"+val+"</a></td></tr>";
+                    });
+                    
+                    // Add response in Modal body
+                        $('.preview-article-body').html(content);
+
+                        // Display Modal
+                        $('#myContentModal').modal('show');
+                });
+
+                request.fail(function(jqXHR, textStatus) {
+                    console.log( "Request failed: " + textStatus );
+                });
+            });
+
+            $('.btn-submit').click(function(event) {
+
+                event.preventDefault();
+
+//                console.log($('.source-domain').value);
+                // AJAX request
+                var request = $.ajax({
+                    url: 'https://dataservicesem3.azurewebsites.net/api/SourcesService',
+                    type: 'POST',
+                    crossDomain: true,
+//                    dataType: 'application/json',
+                    data:
+                    {
+                        Domain: $('#Domain').val(),
+                        Path: $('#Path').val(),
+                        CategoryID: $('#CategoryID').val(),
+                        LinkSelector: $('#LinkSelector').val(),
+                        TitleSelector: $('#TitleSelector').val(),
+                        ContentSelector: $('#ContentSelector').val(),
+                        DescriptionSelector: $('#DescriptionSelector').val(),
+                        RemovalSelector: $('#RemovalSelector').val(),
+                        Status: 1
+                    }
+                });
+
+                request.done(function (response) {
+                    $('#alert-source').removeClass('alert-danger');
+                    $('#alert-source').addClass('alert-success');
+
+                    $('#alert-message').html("Add Source Successfully!");
+
+                    window.location.href = "/Sources/Index";
+                    // Add response in Modal body
+//                    $('.preview-article-body').html(content);
+
+                    // Display Modal
+//                    $('#myContentModal').modal('show');
+                });
+
+                request.fail(function(jqXHR, textStatus) {
+                    console.log("Request failed: " + textStatus);
+                    $('#alert-source').removeClass('alert-success');
+                    $('#alert-source').addClass('alert-danger');
+
+                    $('#alert-message').html("Add Source Failed!");
+                });
             });
         });
 
