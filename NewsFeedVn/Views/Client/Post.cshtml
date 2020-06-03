@@ -1,8 +1,9 @@
-﻿
+﻿@model NewsFeedVn.Models.ViewPostModel
 @{
     ViewBag.Title = "Post";
-    Layout = "~/Views/Frontend/Layout/_Layout.cshtml";
+    Layout = "~/Views/Client/Layout/_Layout.cshtml";
 }
+
 @section AddCss{
     <link rel="stylesheet" type="text/css" href="~/avision/styles/post.css">
     <link rel="stylesheet" type="text/css" href="~/avision/styles/post_responsive.css">
@@ -13,8 +14,8 @@
 <div class="home">
     <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../../avision/images/post.jpg" data-speed="0.8"></div>
     <div class="home_content">
-        <div class="post_category trans_200"><a href="~/avision/category.html" class="trans_200">sport</a></div>
-        <div class="post_title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
+        <div class="post_category trans_200"><a href="~/Categories/Details/@Model.Article.CategoryID" class="trans_200">@Model.Article.Category.Name</a></div>
+        <div class="post_title">@Model.Article.Title</div>
     </div>
 </div>
 
@@ -45,28 +46,8 @@
 
                     <!-- Post Body -->
 
-                    <div class="post_body">
-                        <p class="post_p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce enim nulla, mollis eu metus in, sagittis fringilla tortor. Phasellus eget purus id felis dignissim convallis. Suspendisse et augue dui. Morbi gravida sed justo vel venenatis. Ut tempor pretium maximus. Donec libero diam, faucibus vitae lectus nec, accumsan gravida dui. Nam interdum mi eget lacus aliquet, sit amet ultricies magna pharetra. In ut odio a ligula egestas pretium et quis sapien. Etiam faucibus magna eu porta vulputate. Aliquam euismod rhoncus malesuada. Nunc rutrum hendrerit semper.</p>
-                        <figure>
-                            <img src="~/avision/images/post_image.jpg" alt="">
-                            <figcaption>Lorem Ipsum Dolor Sit Amet</figcaption>
-                        </figure>
-                        <p class="post_p">Maecenas vitae sem varius, imperdiet nisi a, tristique nisi. Sed scelerisque suscipit leo cursus accumsan. Donec vel turpis quam. Mauris non nisl nec nunc gravida ullamcorper id vestibulum magna. Donec non velit finibus, laoreet arcu nec, facilisis augue. Aliquam sed purus id erat accumsan congue. Mauris semper ullamcorper nibh non pellentesque. Aenean euismod purus sit amet quam vehicula ornare.</p>
-                        <div class="post_quote">
-                            <p class="post_p">Aliquam auctor lacus a dapibus pulvinar. Morbi in elit erat. Quisque et augue nec tortor blandit hendrerit eget sit amet sapien. Curabitur at tincidunt metus, quis porta ex. Duis lacinia metus vel eros cursus pretium eget.</p>
-                            <div class="post_quote_source">Robert Morgan</div>
-                        </div>
-                        <p class="post_p">Donec orci dolor, pretium in luctus id, consequat vitae nibh. Quisque hendrerit, lorem sit amet mollis malesuada, urna orci volutpat ex, sed scelerisque nunc velit et massa. Sed maximus id erat vel feugiat. Phasellus bibendum nisi non urna bibendum elementum. Aenean tincidunt nibh vitae ex facilisis ultrices. Integer ornare efficitur ultrices. Integer neque lectus, venenatis at pulvinar quis, aliquet id neque. Mauris ultrices consequat velit, sed dignissim elit posuere in. Cras vitae dictum dui.</p>
-
-                        <!-- Post Tags -->
-                        <div class="post_tags">
-                            <ul>
-                                <li class="post_tag"><a href="#">Liberty</a></li>
-                                <li class="post_tag"><a href="#">Manual</a></li>
-                                <li class="post_tag"><a href="#">Interpretation</a></li>
-                                <li class="post_tag"><a href="#">Recommendation</a></li>
-                            </ul>
-                        </div>
+                    <div id="content_post" class="post_body">
+                        @Html.Raw(@Model.Article.Content)
                     </div>
 
                     <!-- Bottom Panel -->
@@ -86,33 +67,19 @@
                     <!-- Similar Posts -->
                     <div class="similar_posts">
                         <div class="grid clearfix">
-
-                            <!-- Small Card With Image -->
-                            <div class="card card_small_with_image grid-item">
-                                <img class="card-img-top" src="~/avision/images/post_25.jpg" alt="https://unsplash.com/jakobowens1">
-                                <div class="card-body">
-                                    <div class="card-title card-title-small"><a href="~/avision/post.html">How Did van Gogh’s Turbulent Mind</a></div>
-                                    <small class="post_meta"><a href="#">Katy Liu</a><span>Sep 29, 2017 at 9:48 am</span></small>
-                                </div>
-                            </div>
-
-                            <!-- Small Card With Image -->
-                            <div class="card card_small_with_image grid-item">
-                                <img class="card-img-top" src="~/avision/images/post_2.jpg" alt="https://unsplash.com/jakobowens1">
-                                <div class="card-body">
-                                    <div class="card-title card-title-small"><a href="~/avision/post.html">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
-                                    <small class="post_meta"><a href="#">Katy Liu</a><span>Sep 29, 2017 at 9:48 am</span></small>
-                                </div>
-                            </div>
-
-                            <!-- Small Card With Image -->
-                            <div class="card card_small_with_image grid-item">
-                                <img class="card-img-top" src="~/avision/images/post_26.jpg" alt="https://unsplash.com/jakobowens1">
-                                <div class="card-body">
-                                    <div class="card-title card-title-small"><a href="~/avision/post.html">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
-                                    <small class="post_meta"><a href="#">Katy Liu</a><span>Sep 29, 2017 at 9:48 am</span></small>
-                                </div>
-                            </div>
+                            @{
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    <!-- Small Card With Image -->
+                                    <div class="card card_small_with_image grid-item">
+                                        <img class="card-img-top" src="~/avision/images/post_25.jpg" alt="https://unsplash.com/jakobowens1">
+                                        <div class="card-body">
+                                            <div class="card-title card-title-small" style="height: 86.4px"><a href="~/avision/post.html">@Model.ListArticle[i].Title</a></div>
+                                            <small class="post_meta"><a href="#"></a><span>@Model.ListArticle[i].CreatedAt</span></small>
+                                        </div>
+                                    </div>
+                                }
+                            }
 
                         </div>
 
@@ -135,55 +102,28 @@
 
                         <!-- Comments -->
                         <div class="comments">
-                            <div class="comments_title">Comments <span>(12)</span></div>
+                            <div class="comments_title">Comments <span>(@Model.Comments.Count)</span></div>
                             <div class="row">
                                 <div class="col-xl-8">
                                     <div class="comments_container">
                                         <ul class="comment_list">
-                                            <li class="comment">
-                                                <div class="comment_body">
-                                                    <div class="comment_panel d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="comment_author_image"><div><img src="~/avision/images/comment_author_1.jpg" alt=""></div></div>
-                                                        <small class="post_meta"><a href="#">Katy Liu</a><span>Sep 29, 2017 at 9:48 am</span></small>
-                                                        <button type="button" class="reply_button ml-auto">Reply</button>
-                                                    </div>
-                                                    <div class="comment_content">
-                                                        <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened.</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Reply -->
-                                                <ul class="comment_list">
+                                            @{
+                                                foreach (var item in Model.Comments)
+                                                {
                                                     <li class="comment">
                                                         <div class="comment_body">
                                                             <div class="comment_panel d-flex flex-row align-items-center justify-content-start">
-                                                                <div class="comment_author_image"><div><img src="~/avision/images/comment_author_2.jpg" alt=""></div></div>
-                                                                <small class="post_meta"><a href="#">Katy Liu</a><span>Sep 29, 2017 at 9:48 am</span></small>
+                                                                <div class="comment_author_image"><div><img src="~/avision/images/comment_author_1.jpg" alt=""></div></div>
+                                                                <small class="post_meta"><a href="#">@item.Username</a><span>Sep 29, 2017 at 9:48 am</span></small>
                                                                 <button type="button" class="reply_button ml-auto">Reply</button>
                                                             </div>
                                                             <div class="comment_content">
-                                                                <p>Nulla facilisi. Aenean porttitor quis tortor id tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus molestie varius tincidunt. Vestibulum congue sed libero ac sodales.</p>
+                                                                <p>@item.Content</p>
                                                             </div>
                                                         </div>
-
-                                                        <!-- Reply -->
-                                                        <ul class="comment_list">
-                                                        </ul>
                                                     </li>
-                                                </ul>
-                                            </li>
-                                            <li class="comment">
-                                                <div class="comment_body">
-                                                    <div class="comment_panel d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="comment_author_image"><div><img src="~/avision/images/comment_author_1.jpg" alt=""></div></div>
-                                                        <small class="post_meta"><a href="#">Katy Liu</a><span>Sep 29, 2017 at 9:48 am</span></small>
-                                                        <button type="button" class="reply_button ml-auto">Reply</button>
-                                                    </div>
-                                                    <div class="comment_content">
-                                                        <p>Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened.</p>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                }
+                                            }
                                         </ul>
                                     </div>
                                 </div>
@@ -216,6 +156,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 											</svg>
                                     </div>
                                     <ul id="custom_dots" class="custom_dots custom_dots_top">
@@ -230,6 +198,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 											</svg>
                                     </div>
                                 </div>
@@ -240,175 +236,71 @@
                             <!-- Top Stories Slider -->
                             <div class="sidebar_slider_container">
                                 <div class="owl-carousel owl-theme sidebar_slider_top">
-
                                     <!-- Top Stories Slider Item -->
                                     <div class="owl-item">
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
+                                        @{
+                                            for (int i = 0; i < 4; i++)
+                                            {
+                                                <!-- Sidebar Post -->
+                                                <div class="side_post" style="padding-top: 5px">
+                                                    <a href="~/avision/post.html">
+                                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                                            <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
+                                                            <div class="side_post_content">
+                                                                <div class="side_post_title">@Model.ListArticle[i].Title</div>
+                                                                <small class="post_meta"><span>@Model.ListArticle[i].CreatedAt</span></small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_2.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_3.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_4.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                            }
+                                        }
 
                                     </div>
 
                                     <!-- Top Stories Slider Item -->
                                     <div class="owl-item">
 
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
+                                        @{
+                                            for (int i = 4; i < 8; i++)
+                                            {
+                                                <!-- Sidebar Post -->
+                                                <div class="side_post" style="padding-top: 5px">
+                                                    <a href="~/avision/post.html">
+                                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                                            <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
+                                                            <div class="side_post_content">
+                                                                <div class="side_post_title">@Model.ListArticle[i].Title</div>
+                                                                <small class="post_meta"><span>@Model.ListArticle[i].CreatedAt</span></small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_2.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_3.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_4.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                            }
+                                        }
 
                                     </div>
 
                                     <!-- Top Stories Slider Item -->
                                     <div class="owl-item">
 
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
+                                        @{
+                                            for (int i = 8; i < 12; i++)
+                                            {
+                                                <!-- Sidebar Post -->
+                                                <div class="side_post" style="padding-top: 5px">
+                                                    <a href="~/avision/post.html">
+                                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                                            <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
+                                                            <div class="side_post_content">
+                                                                <div class="side_post_title">@Model.ListArticle[i].Title</div>
+                                                                <small class="post_meta"><span>@Model.ListArticle[i].CreatedAt</span></small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_2.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_3.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Sidebar Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/top_4.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                            }
+                                        }
 
                                     </div>
 
@@ -443,6 +335,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 											</svg>
                                     </div>
                                     <ul id="custom_dots" class="custom_dots custom_dots_vid">
@@ -454,6 +374,34 @@
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -669,6 +617,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 											</svg>
                                     </div>
                                     <ul id="custom_dots" class="custom_dots custom_dots_events">
@@ -680,6 +656,34 @@
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -916,4 +920,7 @@
 @section Addscripts{
     <script src="~/avision/plugins/parallax-js-master/parallax.min.js"></script>
     <script src="~/avision/js/post.js"></script>
+}
+@section scripts{
+
 }
