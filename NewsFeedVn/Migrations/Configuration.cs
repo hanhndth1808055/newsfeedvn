@@ -24,27 +24,27 @@ namespace NewsFeedVn.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            //if (!context.Roles.Any(r => r.Name == "Admin"))
-            //{
-            //    var store = new RoleStore<ApplicationRole>(context);
-            //    var manager = new RoleManager<ApplicationRole>(store);
-            //    var role = new ApplicationRole {Name = "Admin"};
-            //    manager.Create(role);
-            //}
-
-            //if (!context.Users.Any(u => u.UserName == "newsfeedvn"))
-            //{
-            //    var store = new UserStore<ApplicationUser>(context);
-            //    var manager = new UserManager<ApplicationUser>(store);
-            //    var user = new ApplicationUser
-            //    {
-            //        UserName = "newsfeedvn",
-            //        Email = "newsfeedvn@yopmail.com"
-            //    };
-
-            //    manager.Create(user, "Abcabc123@@");
-            //    manager.AddToRole(user.Id, "Admin");
-            //}
+            // if (!context.Roles.Any(r => r.Name == "Admin"))
+            // {
+            //     var store = new RoleStore<ApplicationRole>(context);
+            //     var manager = new RoleManager<ApplicationRole>(store);
+            //     var role = new ApplicationRole {Name = "Admin"};
+            //     manager.Create(role);
+            // }
+            //
+            // if (!context.Users.Any(u => u.UserName == "newsfeedvn"))
+            // {
+            //     var store = new UserStore<ApplicationUser>(context);
+            //     var manager = new UserManager<ApplicationUser>(store);
+            //     var user = new ApplicationUser
+            //     {
+            //         UserName = "newsfeedvn",
+            //         Email = "newsfeedvn@yopmail.com"
+            //     };
+            //
+            //     manager.Create(user, "Abcabc123@@");
+            //     manager.AddToRole(user.Id, "Admin");
+            // }
 
             ////context.Database.ExecuteSqlCommand("TRUNCATE TABLE Categories");
             //Category[] categories =
