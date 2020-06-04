@@ -9,5 +9,6 @@ namespace NewsFeedVn.Models
     {
         public List<Category> Categories { get; set; }
         public List<Article> Articles { get; set; }
+        public List<Article> SameArticles { get; set; }
     }
 }

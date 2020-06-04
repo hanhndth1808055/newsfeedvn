@@ -17,6 +17,32 @@ namespace NewsFeedVn.Controllers
         {
             return View();
         }
+        public ActionResult Search(string keyword)
+        {
+            ViewCategoryModel viewCategories;
+            var articles = db.Articles.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                articles = articles.Where(a => a.Content.Contains(keyword) || a.Title.Contains(keyword) || a.Description.Contains(keyword));
+                viewCategories = new ViewCategoryModel()
+                {
+                    Categories = db.Categories.ToList(),
+                    Articles = articles.ToList(),
+                    SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
+                };
+            }
+            else
+            {
+                viewCategories = new ViewCategoryModel()
+                {
+                    Categories = db.Categories.ToList(),
+                    Articles = articles.ToList(),
+                    SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
+                };
+            }
+            return View(viewCategories);
+        }
+
         [Authorize]
         public ActionResult ClientTest()
         {
@@ -51,7 +77,8 @@ namespace NewsFeedVn.Controllers
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    Articles = db.Articles.Where(a => a.CategoryID == id).Take(25).ToList()
+                    Articles = db.Articles.Where(a => a.CategoryID == id).Take(25).ToList(),
+                    SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
                 };
             }
             else
@@ -59,7 +86,8 @@ namespace NewsFeedVn.Controllers
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    Articles = db.Articles.Take(25).ToList()
+                    Articles = db.Articles.Take(25).ToList(),
+                    SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
                 };
             }
             
