@@ -13,9 +13,18 @@ namespace NewsFeedVn.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Client
-        public ActionResult Index()
+        public ActionResult Home()
         {
-            return View();
+            ViewHomeModel viewHomeModel = new ViewHomeModel() { 
+                SlideArticle = db.Articles.Take(3).ToList(),
+                SimilarPostSlide = db.Articles.Take(9).ToList(),
+                Categories = db.Categories.ToList(),
+                TopStories = db.Articles.Take(12).ToList(),
+                DontMiss = db.Articles.Take(8).ToList(),
+                WhatsTrending = db.Articles.Take(7).ToList(),
+                LastestArticle = db.Articles.Take(11).ToList(),
+            };
+            return View(viewHomeModel);
         }
         public ActionResult Search(string keyword)
         {
