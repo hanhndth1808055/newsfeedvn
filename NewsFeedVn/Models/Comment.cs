@@ -19,7 +19,7 @@ namespace NewsFeedVn.Models
         [ForeignKey("Article")]
         [Display(Name = "Article ID")]
         [Required]
-        public int ArticleID { get; set; }
+        public int? ArticleID { get; set; }
         public virtual Article Article { get; set; }
         //USER
         [ForeignKey("User")]
