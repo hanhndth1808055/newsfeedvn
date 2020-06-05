@@ -113,12 +113,12 @@
                             @* </ul> *@
                         </li>
                         <li>
-                            <a class="has-arrow" href="~/kiaalap-master/all-students.html" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">News</span></a>
+                            <a class="has-arrow" href="@Url.Action("Index", "Articles")" aria-expanded="false"><span class="educate-icon educate-student icon-wrap"></span> <span class="mini-click-non">News</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Students" href="~/kiaalap-master/all-students.html"><span class="mini-sub-pro">All Students</span></a></li>
-                                <li><a title="Add Students" href="~/kiaalap-master/add-student.html"><span class="mini-sub-pro">Add Student</span></a></li>
-                                <li><a title="Edit Students" href="~/kiaalap-master/edit-student.html"><span class="mini-sub-pro">Edit Student</span></a></li>
-                                <li><a title="Students Profile" href="~/kiaalap-master/student-profile.html"><span class="mini-sub-pro">Student Profile</span></a></li>
+                                <li><a title="All Students" href="@Url.Action("Index", "Articles")"><span class="mini-sub-pro">All News</span></a></li>
+                                <li><a title="Add Students" href="@Url.Action("Create", "Articles")"><span class="mini-sub-pro">Add News</span></a></li>
+                                @* <li><a title="Edit Students" href="@Url.Action("Index", "Articles")"><span class="mini-sub-pro">Edit News</span></a></li> *@
+                                @* <li><a title="Students Profile" href="~/kiaalap-master/student-profile.html"><span class="mini-sub-pro">Student Profile</span></a></li> *@
                             </ul>
                         </li>
                         @*<li>
