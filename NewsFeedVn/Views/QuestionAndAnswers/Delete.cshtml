@@ -1,4 +1,4 @@
-﻿@model NewsFeedVn.Models.Source
+﻿@model NewsFeedVn.Models.QuestionAndAnswer
 
 @{
     ViewBag.Title = "Delete";
@@ -21,6 +21,14 @@
                                 <div class="devit-card-custom">
                                     <dl class="dl-horizontal">
                                         <dt>
+                                            @Html.DisplayNameFor(model => model.User.UserName)
+                                        </dt>
+
+                                        <dd>
+                                            @Html.DisplayFor(model => model.User.UserName)
+                                        </dd>
+
+                                        <dt>
                                             @Html.DisplayNameFor(model => model.Category.Name)
                                         </dt>
 
@@ -29,61 +37,20 @@
                                         </dd>
 
                                         <dt>
-                                            @Html.DisplayNameFor(model => model.Domain)
+                                            @Html.DisplayNameFor(model => model.Title)
                                         </dt>
 
                                         <dd>
-                                            @Html.DisplayFor(model => model.Domain)
+                                            @Html.DisplayFor(model => model.Title)
                                         </dd>
 
                                         <dt>
-                                            @Html.DisplayNameFor(model => model.Path)
+                                            @Html.DisplayNameFor(model => model.Content)
                                         </dt>
 
                                         <dd>
-                                            @Html.DisplayFor(model => model.Path)
+                                            @Html.DisplayFor(model => model.Content)
                                         </dd>
-
-                                        <dt>
-                                            @Html.DisplayNameFor(model => model.LinkSelector)
-                                        </dt>
-
-                                        <dd>
-                                            @Html.DisplayFor(model => model.LinkSelector)
-                                        </dd>
-
-                                        <dt>
-                                            @Html.DisplayNameFor(model => model.TitleSelector)
-                                        </dt>
-
-                                        <dd>
-                                            @Html.DisplayFor(model => model.TitleSelector)
-                                        </dd>
-
-                                        <dt>
-                                            @Html.DisplayNameFor(model => model.ContentSelector)
-                                        </dt>
-
-                                        <dd>
-                                            @Html.DisplayFor(model => model.ContentSelector)
-                                        </dd>
-
-                                        <dt>
-                                            @Html.DisplayNameFor(model => model.RemovalSelector)
-                                        </dt>
-
-                                        <dd>
-                                            @Html.DisplayFor(model => model.RemovalSelector)
-                                        </dd>
-
-                                        <dt>
-                                            @Html.DisplayNameFor(model => model.Status)
-                                        </dt>
-
-                                        <dd>
-                                            @Html.DisplayFor(model => model.Status)
-                                        </dd>
-
                                     </dl>
                                     <dl class="dl-horizontal">
                                         <dt>

@@ -1,0 +1,67 @@
+﻿@model NewsFeedVn.Models.QuestionAndAnswer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Backend/Layout/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "QuestionAndAnswers", FormMethod.Post, new { @class = "product-form", style = "margin-bottom:50px" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="product-tab-list tab-pane" id="reviews">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <h2 class="">Create</h2>
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                    <hr />
+                    <div class="review-content-section">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="devit-card-custom">
+                                    <div class="col-lg-12 form-group">
+                                        <label class="control-label col-md-2" for="UserID">User</label>
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        <label class="control-label col-md-2" for="CategoryID">Category</label>
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group">
+                                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 form-group">
+                                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 form-group text-center">
+                                        <input type="submit" value="Create" class="btn btn-primary waves-effect waves-light" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

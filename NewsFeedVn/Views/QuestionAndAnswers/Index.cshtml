@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NewsFeedVn.Models.Article>
+﻿@model IEnumerable<NewsFeedVn.Models.QuestionAndAnswer>
 
 @{
     ViewBag.Title = "Index";
@@ -24,7 +24,7 @@
                 <div class="sparkline13-list">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
-                            <h1>Articles</h1>
+                            <h1>QuestionAndAnswer</h1>
                             <p>
                                 @Html.ActionLink("Create New", "Create")
                             </p>
@@ -46,13 +46,11 @@
                                     <tr>
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="id">ID</th>
+                                        <th data-field="user">User</th>
+                                        <th data-field="category">Category</th>
                                         <th data-field="title">Title</th>
-                                        <th data-field="description">Description</th>
                                         <th data-field="content">Content</th>
-                                        <th data-field="url">Url</th>
-                                        <th data-field="status">Status</th>
-                                        <th data-field="domain">Domain</th>
-                                        <th data-field="action">Action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,24 +62,16 @@
                                             @Html.DisplayFor(modelItem => item.Id)
                                         </td>
                                         <td>
+                                            @Html.DisplayFor(modelItem => item.User.UserName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Category.Name)
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.Title)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
                                             @Html.DisplayFor(modelItem => item.Content)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Url)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Status)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Source.Domain)
-                                        </td>
-
                                         <td class="datatable-ct">
                                             @Html.ActionLink(" ", "Details", new { Id = item.Id }, new { @class = "glyphicon glyphicon-info-sign" }) |
                                             @Html.ActionLink(" ", "Edit", new { Id = item.Id }, new { @class = "glyphicon glyphicon-edit" }) |

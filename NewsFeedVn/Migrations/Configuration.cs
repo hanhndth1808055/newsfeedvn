@@ -76,6 +76,21 @@ namespace NewsFeedVn.Migrations
             //    }
             //};
             //context.Categories.AddOrUpdate(categories);
+           Subscriber[] subscribers =
+            {
+                new Subscriber()
+                {
+                    Id = 1,
+                    Email = "test@gmail.com"
+                },
+                 new Subscriber()
+                {
+                    Id = 2,
+                    Email = context.Users.Find("47fc86a5-2fe7-4ad9-8273-e07ca79c6d44").Email,
+                    UserID = "47fc86a5-2fe7-4ad9-8273-e07ca79c6d44"
+                },
+            };
+            context.Subscribers.AddOrUpdate(subscribers);
 
         }
     }
