@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -57,6 +58,20 @@ namespace NewsFeedVn.Controllers
             }
 
             return View(questionAndAnswer);
+        }
+
+        public ActionResult CreateClient(QuestionAndAnswer questionAndAnswer)
+        {
+            Debug.WriteLine("OK");
+            // if (ModelState.IsValid)
+            // {
+            //     db.QuestionAndAnswers.Add(questionAndAnswer);
+            //     db.SaveChanges();
+            //     return RedirectToAction("Index");
+            // }
+            //
+            // return View(questionAndAnswer);
+            return null;
         }
 
         // GET: Categories/Edit/5
