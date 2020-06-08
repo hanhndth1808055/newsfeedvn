@@ -121,5 +121,30 @@ namespace NewsFeedVn.Controllers
         //     }
         //     return View(category);
         // }
+
+        // GET: Categories/Create
+        public ActionResult SendQuestion()
+        {
+            ViewBag.CategoryID = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.UserId = new SelectList(db.Users, "Id", "Username");
+            return View();
+        }
+
+        // POST: Categories/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,UserID,CategoryID,Title,Content")] QuestionAndAnswer questionAndAnswer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.QuestionAndAnswers.Add(questionAndAnswer);
+                db.SaveChanges();
+                return RedirectToAction("SendQuestion");
+            }
+
+            return View("SendQuestion", questionAndAnswer);
+        }
     }
 }

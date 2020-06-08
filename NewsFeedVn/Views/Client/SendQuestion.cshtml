@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNet.Identity
+@model NewsFeedVn.Models.QuestionAndAnswer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Frontend/Layout/_Layout.cshtml";
+}
+
+@section AddCss{
+    <link rel="stylesheet" type="text/css" href="~/avision/styles/contact.css">
+    <link rel="stylesheet" type="text/css" href="~/avision/styles/contact_responsive.css">
+}
+
+
+@using (Html.BeginForm("Create", "QuestionAndAnswers", FormMethod.Post, new {@class = "product-form", style = "margin-bottom:50px"}))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Home -->
+
+    <div class="home">
+        <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../../avision/images/regular.jpg" data-speed="0.8"></div>
+        <div class="home_content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <!-- Post Comment -->
+                        <div class="post_comment">
+                            <div class="contact_form_container">
+                                @Html.ValidationMessageFor(model => model.UserID, "", new {@class = "text-danger"})
+                                @Html.DropDownList("CategoryID", null, htmlAttributes: new {@class = "form-control contact_input contact_input_name"})
+                                @Html.ValidationMessageFor(model => model.CategoryID, "", new {@class = "text-danger"})
+                                @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control contact_text", placeholder = "Question"}})
+                                @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+                                @* @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control contact_input contact_input_name", placeholder="Content" } }) *@
+                                @* @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" }) *@
+                                @Html.EditorFor(model => model.UserID, new {htmlAttributes = new {@class = "text-danger", hidden = "true", value = @HttpContext.Current.User.Identity.GetUserId()}})
+
+                                @* <input type="text" class="contact_input contact_input_name" placeholder="Your Name" required="required" hidden="true"> *@
+                                @* <input type="text" class="contact_input contact_input_name" placeholder="Your Name" required="required"> *@
+                                @* <input type="email" class="contact_input contact_input_email" placeholder="Your Email" required="required"> *@
+                                @* <textarea class="contact_text" placeholder="Your Message" required="required"></textarea> *@
+                                <input type="submit" value="Submit" class="contact_button"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Addscripts{
+    <script src="~/avision/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="~/avision/js/contact.js"></script>
+}
+
+
+
