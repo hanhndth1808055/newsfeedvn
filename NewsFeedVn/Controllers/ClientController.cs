@@ -24,6 +24,7 @@ namespace NewsFeedVn.Controllers
                 WhatsTrending = db.Articles.Where(p => (int)p.Status == 2).Take(7).ToList(),
                 LastestArticle = db.Articles.Where(p => (int)p.Status == 2).Take(11).ToList(),
             };
+            ViewBag.MenuHeaderActive = "Home";
             return View(viewHomeModel);
         }
         public ActionResult Search(string keyword)
@@ -39,13 +40,13 @@ namespace NewsFeedVn.Controllers
                     Articles = articles.ToList(),
                     SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
                 };
+                ViewBag.CategoryId = 0;
             }
             else
             {
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    Articles = articles.ToList(),
                     SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
                 };
             }
@@ -83,12 +84,23 @@ namespace NewsFeedVn.Controllers
             ViewCategoryModel viewCategories;
             if (id != null)
             {
+                var Categories = db.Categories.ToList();
+                for (int i = 0; i < Categories.Count; i++)
+                {
+                    if (Categories[i].Id == id)
+                    {
+                        var tmp = Categories[i];
+                        Categories[i] = Categories[0];
+                        Categories[0] = tmp;
+                    }
+                }
                 viewCategories = new ViewCategoryModel()
                 {
-                    Categories = db.Categories.ToList(),
+                    Categories = Categories,
                     Articles = db.Articles.Where(a => a.CategoryID == id).Take(25).ToList(),
                     SameArticles = db.Articles.Where(a => a.CategoryID == id).OrderBy(a => a.CreatedAt).Take(12).ToList()
                 };
+                ViewBag.CategoryId = id;
             }
             else
             {
@@ -98,8 +110,9 @@ namespace NewsFeedVn.Controllers
                     Articles = db.Articles.Where(a => a.CategoryID == id).Take(25).ToList(),
                     SameArticles = db.Articles.Where(a => a.CategoryID == id).OrderBy(a => a.CreatedAt).Take(12).ToList()
                 };
+                ViewBag.CategoryId = 0;
             }
-            
+            ViewBag.MenuHeaderActive = "Categories";
             return View("~/Views/Client/Category.cshtml", viewCategories);
         }
         public JsonResult AjaxCategoriesIndex(int index)
