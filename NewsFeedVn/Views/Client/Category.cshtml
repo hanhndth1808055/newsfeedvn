@@ -34,20 +34,20 @@
                             <div class="section_title">Don't Miss</div>
                             <div class="section_tags ml-auto">
                                 <ul>
-                                    <li class="active"><a href="/Client/CategoriesIndex">all</a></li>
+                                    <li @{ if (ViewBag.CategoryId == 0) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex">all</a></li>
                                     @{
-                                        if (Model.Categories.Count < 4)
+                                        if (Model.Categories.Count > 0 && Model.Categories.Count < 4)
                                         {
                                             for (int i = 0; i < Model.Categories.Count; i++)
                                             {
-                                                <li><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
+                                                <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
                                             }
                                         }
-                                        else
+                                        else if(Model.Categories.Count > 4)
                                         {
                                             for (int i = 0; i < 4; i++)
                                             {
-                                                <li><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
+                                                <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
                                             }
                                         }
                                     }
@@ -61,9 +61,9 @@
                                             @{
                                                 if (Model.Categories.Count > 4)
                                                 {
-                                                    for (int i = 4; i < Model.Categories.Count - 4; i++)
+                                                    for (int i = 4; i < Model.Categories.Count; i++)
                                                     {
-                                                        <li><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
+                                                        <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
                                                     }
                                                 }
                                             }
@@ -74,59 +74,61 @@
                         </div>
                         <div class="section_content">
                             <div id="article" class="grid clearfix">
-
                                 @{
-                                    int[] arr1 = new int[] { 0, 2, 3, 6, 14, 15, 17, 20 };
-                                    int[] arr2 = new int[] { 1, 7, 8, 12, 13, 16, 21, 22 };
-                                    int[] arr3 = new int[] { 4, 5, 11, 18, 19 };
-                                    int[] arr4 = new int[] { 9, 10, 23, 24 };
-                                    for (int i = 0; i < 25; i++)
+                                    if (Model.Articles.Count >= 25)
                                     {
-                                        if (Array.IndexOf(arr1, i) > -1)
+                                        int[] arr1 = new int[] { 0, 2, 3, 6, 14, 15, 17, 20 };
+                                        int[] arr2 = new int[] { 1, 7, 8, 12, 13, 16, 21, 22 };
+                                        int[] arr3 = new int[] { 4, 5, 11, 18, 19 };
+                                        int[] arr4 = new int[] { 9, 10, 23, 24 };
+                                        for (int i = 0; i < 25; i++)
                                         {
-                                            <!-- Small Card With Image 0-->
-                                            <div class="card card_small_with_image grid-item">
-                                                <img class="card-img-top" src="~/avision/images/post_10.jpg" alt="">
-                                                <div class="card-body">
-                                                    <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
-                                                    <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                            if (Array.IndexOf(arr1, i) > -1)
+                                            {
+                                                <!-- Small Card With Image 0-->
+                                                <div class="card card_small_with_image grid-item">
+                                                    <img class="card-img-top" src="~/avision/images/post_10.jpg" alt="">
+                                                    <div class="card-body">
+                                                        <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                                        <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        }
-                                        else if (Array.IndexOf(arr2, i) > -1)
-                                        {
-                                            <!-- Small Card Without Image 1-->
-                                            <div class="card card_default card_small_no_image grid-item">
-                                                <div class="card-body">
-                                                    <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
-                                                    <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                            }
+                                            else if (Array.IndexOf(arr2, i) > -1)
+                                            {
+                                                <!-- Small Card Without Image 1-->
+                                                <div class="card card_default card_small_no_image grid-item">
+                                                    <div class="card-body">
+                                                        <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                                        <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        }
-                                        else if (Array.IndexOf(arr3, i) > -1)
-                                        {
-                                            <!-- Small Card With Background 4-->
-                                            <div class="card card_default card_small_with_background grid-item">
-                                                <div class="card_background" style="background-image:url(../../avision/images/post_11.jpg)"></div>
-                                                <div class="card-body">
-                                                    <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
-                                                    <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                            }
+                                            else if (Array.IndexOf(arr3, i) > -1)
+                                            {
+                                                <!-- Small Card With Background 4-->
+                                                <div class="card card_default card_small_with_background grid-item">
+                                                    <div class="card_background" style="background-image:url(../../avision/images/post_11.jpg)"></div>
+                                                    <div class="card-body">
+                                                        <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                                        <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        }
-                                        else if (Array.IndexOf(arr4, i) > -1)
-                                        {
-                                            <!-- Default Card With Background 9-->
-                                            <div class="card card_default card_default_with_background grid-item">
-                                                <div class="card_background" style="background-image:url(../../avision/images/post_12.jpg)"></div>
-                                                <div class="card-body">
-                                                    <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                            }
+                                            else if (Array.IndexOf(arr4, i) > -1)
+                                            {
+                                                <!-- Default Card With Background 9-->
+                                                <div class="card card_default card_default_with_background grid-item">
+                                                    <div class="card_background" style="background-image:url(../../avision/images/post_12.jpg)"></div>
+                                                    <div class="card-body">
+                                                        <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         }
                                     }
                                 }
-                                
+
                             </div>
                         </div>
                     </div>
@@ -155,69 +157,7 @@
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="0,5.61 5.609,0 7,0 7,1.438 2.438,6 7,10.563 7,12 5.609,12 -0.002,6.39 " />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											</svg>
+                                        </svg>
                                     </div>
                                     <ul id="custom_dots" class="custom_dots custom_dots_top">
                                         <li class="custom_dot custom_dot_top active"><span></span></li>
@@ -229,69 +169,7 @@
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											</svg>
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
@@ -302,73 +180,35 @@
                             <div class="sidebar_slider_container">
                                 <div class="owl-carousel owl-theme sidebar_slider_top">
 
-                                    <!-- Top Stories Slider Item -->
-                                    <div class="owl-item">
-                                        @{
-                                            for (int i = 0; i < 4; i++)
+                                    @{
+                                        if (Model.SameArticles.Count >= 12)
+                                        {
+                                            for (int i = 0; i < Model.SameArticles.Count / 4; i++)
                                             {
-                                                <!-- Sidebar Post -->
-                                                <div class="side_post" style="padding-top: 5px">
-                                                    <a href="/Client/Post?id=@Model.SameArticles[i].Id">
-                                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                            <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
-                                                            <div class="side_post_content">
-                                                                <div class="side_post_title">@Model.SameArticles[i].Title</div>
-                                                                <small class="post_meta"><span>@Model.SameArticles[i].CreatedAt</span></small>
+                                                <!-- Top Stories Slider Item -->
+                                                <div class="owl-item">
+                                                    @{
+                                                        for (int j = i * 4; j < (i * 4) + 4; j++)
+                                                        {
+                                                            <!-- Sidebar Post -->
+                                                            <div class="side_post" style="padding-top: 5px">
+                                                                <a href="/Client/Post?id=@Model.SameArticles[j].Id">
+                                                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                                                        <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
+                                                                        <div class="side_post_content">
+                                                                            <div class="side_post_title">@Model.SameArticles[j].Title</div>
+                                                                            <small class="post_meta"><span>@Model.SameArticles[j].CreatedAt</span></small>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
                                                             </div>
-                                                        </div>
-                                                    </a>
+                                                        }
+                                                    }
+
                                                 </div>
                                             }
                                         }
-
-                                    </div>
-
-                                    <!-- Top Stories Slider Item -->
-                                    <div class="owl-item">
-
-                                        @{
-                                            for (int i = 4; i < 8; i++)
-                                            {
-                                                <!-- Sidebar Post -->
-                                                <div class="side_post" style="padding-top: 5px">
-                                                    <a href="/Client/Post?id=@Model.SameArticles[i].Id">
-                                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                            <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
-                                                            <div class="side_post_content">
-                                                                <div class="side_post_title">@Model.SameArticles[i].Title</div>
-                                                                <small class="post_meta"><span>@Model.SameArticles[i].CreatedAt</span></small>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            }
-                                        }
-
-                                    </div>
-
-                                    <!-- Top Stories Slider Item -->
-                                    <div class="owl-item">
-
-                                        @{
-                                            for (int i = 8; i < 12; i++)
-                                            {
-                                                <!-- Sidebar Post -->
-                                                <div class="side_post" style="padding-top: 5px">
-                                                    <a href="/Client/Post?id=@Model.SameArticles[i].Id">
-                                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                            <div class="side_post_image"><div><img src="~/avision/images/top_1.jpg" alt=""></div></div>
-                                                            <div class="side_post_content">
-                                                                <div class="side_post_title">@Model.SameArticles[i].Title</div>
-                                                                <small class="post_meta"><span>@Model.SameArticles[i].CreatedAt</span></small>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            }
-                                        }
-
-                                    </div>
+                                    }
 
                                 </div>
                             </div>
@@ -387,352 +227,6 @@
                         </div>
                     </div>
 
-                    <!-- Newest Videos -->
-
-                    <div class="sidebar_section newest_videos">
-                        <div class="sidebar_title_container">
-                            <div class="sidebar_title">Newest Videos</div>
-                            <div class="sidebar_slider_nav">
-                                <div class="custom_nav_container sidebar_slider_nav_container">
-                                    <div class="custom_prev custom_prev_vid">
-                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                             width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
-                                        <polyline fill="#bebebe" points="0,5.61 5.609,0 7,0 7,1.438 2.438,6 7,10.563 7,12 5.609,12 -0.002,6.39 " />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											</svg>
-                                    </div>
-                                    <ul id="custom_dots" class="custom_dots custom_dots_vid">
-                                        <li class="custom_dot custom_dot_vid active"><span></span></li>
-                                        <li class="custom_dot custom_dot_vid"><span></span></li>
-                                        <li class="custom_dot custom_dot_vid"><span></span></li>
-                                    </ul>
-                                    <div class="custom_next custom_next_vid">
-                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                             width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
-                                        <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											</svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="sidebar_section_content">
-
-                            <!-- Sidebar Slider -->
-                            <div class="sidebar_slider_container">
-                                <div class="owl-carousel owl-theme sidebar_slider_vid">
-
-                                    <!-- Newest Videos Slider Item -->
-                                    <div class="owl-item">
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_1.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_2.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_3.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_4.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Newest Videos Slider Item -->
-                                    <div class="owl-item">
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_1.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_2.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_3.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_4.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Newest Videos Slider Item -->
-                                    <div class="owl-item">
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_1.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_2.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_3.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                        <!-- Newest Videos Post -->
-                                        <div class="side_post">
-                                            <a href="~/avision/post.html">
-                                                <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                                    <div class="side_post_image"><div><img src="~/avision/images/vid_4.jpg" alt=""></div></div>
-                                                    <div class="side_post_content">
-                                                        <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                                        <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Advertising 2 -->
-
-                    <div class="sidebar_section">
-                        <div class="advertising_2">
-                            <div class="advertising_background" style="background-image:url(../../avision/images/post_18.jpg)"></div>
-                            <div class="advertising_2_content d-flex flex-column align-items-center justify-content-center">
-                                <div class="advertising_2_link"><a href="#">Turbulent <span>Mind</span></a></div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Future Events -->
 
                     <div class="sidebar_section future_events">
@@ -745,69 +239,7 @@
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="0,5.61 5.609,0 7,0 7,1.438 2.438,6 7,10.563 7,12 5.609,12 -0.002,6.39 " />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											</svg>
+                                        </svg>
                                     </div>
                                     <ul id="custom_dots" class="custom_dots custom_dots_events">
                                         <li class="custom_dot custom_dot_events active"><span></span></li>
@@ -819,69 +251,7 @@
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-											</svg>
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
@@ -1100,6 +470,17 @@
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advertising 2 -->
+
+                    <div class="sidebar_section">
+                        <div class="advertising_2">
+                            <div class="advertising_background" style="background-image:url(../../avision/images/post_18.jpg)"></div>
+                            <div class="advertising_2_content d-flex flex-column align-items-center justify-content-center">
+                                <div class="advertising_2_link"><a href="#">Turbulent <span>Mind</span></a></div>
                             </div>
                         </div>
                     </div>
