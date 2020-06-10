@@ -25,24 +25,26 @@
                 <div class="sparkline13-list">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
-                            <!-- Image loader -->
-                            <div id='loader' style='display: none;'>
-                                <img src='https://i.ya-webdesign.com/images/transparent-gear-animated.gif' width='32px' height='32px'>
-                            </div>
-                            <!-- Image loader -->
+                            
                             <h1>Sources</h1>
                             <p>
                                 @Html.ActionLink("Create New", "AddNew")
                             </p>
-                            <p>
-                                <button type="button" class="btn btn-primary activate-crawler" data-toggle="modal">
+                            <div>
+                                <button type="button" class="btn btn-primary activate-crawler" style="margin-right: 10px" data-toggle="modal">
                                     Run URL Crawlers
                                 </button>
-                            </p>
-                            <p>
                                 <button type="button" class="btn btn-primary activate-content-crawler" data-toggle="modal">
                                     Run Content Crawlers
                                 </button>
+                                <!-- Image loader -->
+                                <div id='loader' style='display: none;'>
+                                    <img src='https://i.ya-webdesign.com/images/transparent-gear-animated.gif' width='32px' height='32px'>
+                                </div>
+                                <!-- Image loader -->
+                            </div>
+                            <p>
+                                
                             </p>
                             <hr />
                         </div>
