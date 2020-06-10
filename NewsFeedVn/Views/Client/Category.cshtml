@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "Category";
     Layout = "~/Views/Client/Layout/_Layout.cshtml";
-
+    var index = (int)ViewBag.Index;
+    index++;
 }
 
 @section AddCss{
@@ -75,15 +76,11 @@
                         <div class="section_content">
                             <div id="article" class="grid clearfix">
                                 @{
-                                    if (Model.Articles.Count >= 25)
+                                    if (Model.Articles.Count > 0)
                                     {
-                                        int[] arr1 = new int[] { 0, 2, 3, 6, 14, 15, 17, 20 };
-                                        int[] arr2 = new int[] { 1, 7, 8, 12, 13, 16, 21, 22 };
-                                        int[] arr3 = new int[] { 4, 5, 11, 18, 19 };
-                                        int[] arr4 = new int[] { 9, 10, 23, 24 };
-                                        for (int i = 0; i < 25; i++)
+                                        for (int i = 0; i < Model.Articles.Count; i++)
                                         {
-                                            if (Array.IndexOf(arr1, i) > -1)
+                                            if (i % 2 == 0)
                                             {
                                                 <!-- Small Card With Image 0-->
                                                 <div class="card card_small_with_image grid-item">
@@ -94,7 +91,7 @@
                                                     </div>
                                                 </div>
                                             }
-                                            else if (Array.IndexOf(arr2, i) > -1)
+                                            else if (i % 3 == 0 && i % 2 != 0 && i % 5 != 0)
                                             {
                                                 <!-- Small Card Without Image 1-->
                                                 <div class="card card_default card_small_no_image grid-item">
@@ -104,7 +101,7 @@
                                                     </div>
                                                 </div>
                                             }
-                                            else if (Array.IndexOf(arr3, i) > -1)
+                                            else if (i % 5 == 0 && i % 2 != 0 && i % 7 != 0)
                                             {
                                                 <!-- Small Card With Background 4-->
                                                 <div class="card card_default card_small_with_background grid-item">
@@ -115,7 +112,7 @@
                                                     </div>
                                                 </div>
                                             }
-                                            else if (Array.IndexOf(arr4, i) > -1)
+                                            else
                                             {
                                                 <!-- Default Card With Background 9-->
                                                 <div class="card card_default card_default_with_background grid-item">
@@ -135,7 +132,7 @@
 
                 </div>
                 <div class="load_more">
-                    <div id="load_more" class="load_more_button text-center trans_200">Load More</div>
+                    <div id="load_more" class="load_more_button text-center trans_200"><a href="/Client/CategoriesIndex?id=@ViewBag.CategoryId&index=@index">Load More</a></div>
                 </div>
             </div>
 
@@ -354,37 +351,41 @@
 
         var index = 2;
         $(document).ready(function () {
-            $("#load_more").click(function (e) {
-                e.isDefaultPrevented;
-                $.ajax({
-                    url: "/Client/AjaxCategoriesIndex?index=" + index,
-                    method: 'GET'
-                }).done(function (response) {
-                    var html = $("#article").html();
-                    html += response.toString();
-                    console.log(html);
-                    //$("#article").html(html);
-                    index++;
-                });
-            });
-
-            //$("form[name=search_form]").submit(function () {
-            //    var keyword = $('input[name=keyword]').val();
-            //    alert(keyword);
+            //$("#load_more").click(function (e) {
+            //    e.isDefaultPrevented;
             //    $.ajax({
-            //        url: "/Client/Search",
-            //        method: 'GET',
-            //        data: {
-            //            keyword: text,
-            //        }
+            //        url: "/Client/AjaxCategoriesIndex?index=" + index,
+            //        method: 'GET'
             //    }).done(function (response) {
-            //        var html = $("#article").html();
-            //        html += response.toString();
-            //        console.log(html);
-            //        //$("#article").html(html);
-            //        index++;
+            //        console.log(response);
+            //        var html = "";
+            //        var list = JSON.parse(response)
+            //        for (var i = 0; i < list.length; i++) {
+            //            if (i % 2 == 0) {
+            //                html += '<!-- Small Card With Image 0-->';
+            //                html += '<div class="card card_small_with_image grid-item">';
+            //                html += '<img class="card-img-top" src="' + list[i].Img + '" alt="">';
+            //                html += '<div class="card-body">';
+            //                html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
+            //                html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt +'</span></small>';
+            //                html += '</div>';
+            //                html += '</div>';
+            //            } else if (i % 3 == 0 && i % 2 != 0 && i % 5 != 0) {
+            //                html += '<!-- Small Card Without Image 1-->';
+            //                html += '<div class="card card_default card_small_no_image grid-item">';
+            //                html += '<div class="card-body">';
+            //                html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
+            //                html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt + '</span></small>';
+            //                html += '</div>';
+            //                html += '</div>';
+            //            } else if (i % 5 == 0 && i % 2 != 0 && i % 7 != 0) {
+
+            //            } else {
+
+            //            }
+            //        }
+            //        $("#article").html(html);
             //    });
-            //    return false;
             //});
         });
     </script>
