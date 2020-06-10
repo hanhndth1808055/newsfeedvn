@@ -24,67 +24,110 @@
                     for (int i = 0; i < Model.SlideArticle.Count; i++)
                     {
                         <!-- Slider Item -->
-                        <div class="owl-item">
-                            <div class="home_slider_background" style="background-image:url(@Model.SlideArticle[i].Img)"></div>
-                            <div class="home_slider_content_container">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="home_slider_content">
-                                                <div class="home_slider_item_category trans_200"><a href="/Client/CategoriesIndex?id=@Model.SlideArticle[i].CategoryID" class="trans_200">@Model.SlideArticle[i].Category.Name</a></div>
-                                                <div class="home_slider_item_title">
-                                                    <a href="/Client/Post?id=@Model.SlideArticle[i].Id">@Model.SlideArticle[i].Title</a>
-                                                </div>
-                                                <div class="home_slider_item_link">
-                                                    <a href="/Client/Post?id=@Model.SlideArticle[i].Id" class="trans_200">
-                                                        Continue Reading
-                                                        <svg version="1.1" id="link_arrow_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                             width="19px" height="13px" viewBox="0 0 19 13" enable-background="new 0 0 19 13" xml:space="preserve">
-                                                        <polygon fill="#FFFFFF" points="12.475,0 11.061,0 17.081,6.021 0,6.021 0,7.021 17.038,7.021 11.06,13 12.474,13 18.974,6.5 " />
+            <div class="owl-item">
+
+                @if (i == 0)
+                {
+                    <div class="home_slider_background" style="background-image:url('https://images.pexels.com/photos/3095621/pexels-photo-3095621.jpeg')"></div>
+                }
+                @if (i == 1)
+                {
+                    <div class="home_slider_background" style="background-image:url('https://images.pexels.com/photos/4057663/pexels-photo-4057663.jpeg')"></div>
+                }
+                @if (i == 2)
+                {
+                    <div class="home_slider_background" style="background-image:url('https://images.pexels.com/photos/34088/pexels-photo.jpg')"></div>
+                }
+
+                <div class="home_slider_content_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_slider_content">
+                                    <div class="home_slider_item_category trans_200"><a href="/Client/CategoriesIndex?id=@Model.SlideArticle[i].CategoryID" class="trans_200">@Model.SlideArticle[i].Category.Name</a></div>
+                                    <div class="home_slider_item_title">
+                                        <a href="/Client/Post?id=@Model.SlideArticle[i].Id">@Model.SlideArticle[i].Title</a>
+                                    </div>
+                                    <div class="home_slider_item_link">
+                                        <a href="/Client/Post?id=@Model.SlideArticle[i].Id" class="trans_200">
+                                            Continue Reading
+                                            <svg version="1.1" id="link_arrow_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 width="19px" height="13px" viewBox="0 0 19 13" enable-background="new 0 0 19 13" xml:space="preserve">
+                                            <polygon fill="#FFFFFF" points="12.475,0 11.061,0 17.081,6.021 0,6.021 0,7.021 17.038,7.021 11.06,13 12.474,13 18.974,6.5 " />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                                     </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Similar Posts -->
-                            <div class="similar_posts_container">
-                                <div class="container">
-                                    <div class="row d-flex flex-row align-items-end">
-                                        @{
-                                            if (Model.SimilarPostSlide.Count >= 9)
-                                            {
-                                                for (int j = i * 3; j < (i * 3) + 3; j++)
-                                                {
-                                                    <!-- Similar Post -->
-                                                    <div class="col-lg-3 col-md-6 similar_post_col">
-                                                        <div class="similar_post trans_200">
-                                                            <a href="/Client/Post?id=@Model.SimilarPostSlide[j].Id">@Model.SimilarPostSlide[j].Title</a>
-                                                        </div>
-                                                    </div>
-                                                }
-                                            }
-                                        }
-
-                                    </div>
-                                </div>
-
-                                <div class="home_slider_next_container">
-                                    <div class="home_slider_next" style="background-image:url(@Model.SlideArticle[i].Img)">
-                                        <div class="home_slider_next_background trans_400"></div>
-                                        <div class="home_slider_next_content trans_400">
-                                            <div class="home_slider_next_title">next</div>
-                                            <div class="home_slider_next_link">@Model.SlideArticle[i].Title</div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Similar Posts -->
+                <div class="similar_posts_container">
+                    <div class="container">
+                        <div class="row d-flex flex-row align-items-end">
+                            @{
+                                if (Model.SimilarPostSlide.Count >= 9)
+                                {
+                                    for (int j = i * 3; j < (i * 3) + 3; j++)
+                                    {
+                                        <!-- Similar Post -->
+                                        <div class="col-lg-3 col-md-6 similar_post_col">
+                                            <div class="similar_post trans_200">
+                                                <a href="/Client/Post?id=@Model.SimilarPostSlide[j].Id">@Model.SimilarPostSlide[j].Title</a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="home_slider_next_container">
+                        <div class="home_slider_next" style="background-image:url(@Model.SlideArticle[i].Img)">
+                            <div class="home_slider_next_background trans_400"></div>
+                            <div class="home_slider_next_content trans_400">
+                                <div class="home_slider_next_title">next</div>
+                                <div class="home_slider_next_link">@Model.SlideArticle[i].Title</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
                     }
                 }
             }
