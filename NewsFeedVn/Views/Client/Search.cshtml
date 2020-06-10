@@ -81,11 +81,12 @@
                                         {
                                             if (i % 2 == 0)
                                             {
-                                                <!-- Default Card With Background 9-->
-                                                <div class="card card_default card_default_with_background grid-item">
-                                                    <div class="card_background" style="background-image:url(@Model.Articles[i].Img)"></div>
+                                                <!-- Small Card With Image 0-->
+                                                <div class="card card_small_with_image grid-item">
+                                                    <img class="card-img-top" src="@Model.Articles[i].Img" alt="">
                                                     <div class="card-body">
                                                         <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                                        <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
                                                     </div>
                                                 </div>
                                             }
@@ -110,14 +111,16 @@
                                                     </div>
                                                 </div>
                                             }
-                                            <!-- Small Card With Image 0-->
-                                            <div class="card card_small_with_image grid-item">
-                                                <img class="card-img-top" src="@Model.Articles[i].Img" alt="">
-                                                <div class="card-body">
-                                                    <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
-                                                    <small class="post_meta"><a href="#">Katy Liu</a><span>@Model.Articles[i].CreatedAt</span></small>
+                                            else
+                                            {
+                                                <!-- Default Card With Background 9-->
+                                                <div class="card card_default card_default_with_background grid-item">
+                                                    <div class="card_background" style="background-image:url(@Model.Articles[i].Img)"></div>
+                                                    <div class="card-body">
+                                                        <div class="card-title card-title-small"><a href="/Client/Post?id=@Model.Articles[i].Id">@Model.Articles[i].Title</a></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         }
                                     }
                                 }

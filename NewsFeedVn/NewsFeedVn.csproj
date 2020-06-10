@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202006041426381_EditDB.Designer.cs">
       <DependentUpon>202006041426381_EditDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006101100161_Update-Article-Table.cs" />
+    <Compile Include="Migrations\202006101100161_Update-Article-Table.Designer.cs">
+      <DependentUpon>202006101100161_Update-Article-Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
@@ -478,6 +482,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202006041426381_EditDB.resx">
       <DependentUpon>202006041426381_EditDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006101100161_Update-Article-Table.resx">
+      <DependentUpon>202006101100161_Update-Article-Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

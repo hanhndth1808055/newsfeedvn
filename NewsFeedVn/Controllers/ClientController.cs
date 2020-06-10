@@ -1,4 +1,5 @@
 ﻿using NewsFeedVn.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -123,11 +124,12 @@ namespace NewsFeedVn.Controllers
         {
             Session["LastestArticle"] = LastestArticle;
         }
-        public ActionResult CategoriesIndex(int? id)
+        public ActionResult CategoriesIndex(int? id, int? index)
         {
             ViewCategoryModel viewCategories;
+            List<Article> articles = null;
             var LastestArticle = getLastestArticle();
-            if (id != null)
+            if (id != null && id != 0)
             {
                 var Categories = db.Categories.ToList();
                 for (int i = 0; i < Categories.Count; i++)
@@ -139,10 +141,11 @@ namespace NewsFeedVn.Controllers
                         Categories[0] = tmp;
                     }
                 }
+                articles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(25).ToList();
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = Categories,
-                    Articles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(25).ToList(),
+                    Articles = articles,
                     SameArticles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
                     LastestArticle = LastestArticle
                 };
@@ -150,23 +153,34 @@ namespace NewsFeedVn.Controllers
             }
             else
             {
+                articles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(25).ToList();
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    Articles = db.Articles.Where( a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(25).ToList(),
+                    Articles = articles,
                     SameArticles = db.Articles.Where( a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
                     LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = 0;
             }
+            if (index != null)
+            {
+                articles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(index.Value * 25).ToList();
+                viewCategories.Articles = articles;
+                ViewBag.Index = index;
+            }
+            else
+            {
+                ViewBag.Index = 2;
+            }
             ViewBag.MenuHeaderActive = "Categories";
             return View("~/Views/Client/Category.cshtml", viewCategories);
         }
-        public JsonResult AjaxCategoriesIndex(int index)
+        public string AjaxCategoriesIndex(int index)
         {
-            var articleMore = db.Articles.AsQueryable();
-            articleMore = articleMore.Where(p => (int)p.Status == 2).OrderBy(a => a.CreatedAt).Skip((index - 1) * 25).Take(25);
-            return Json(articleMore, JsonRequestBehavior.AllowGet);
+            var articleMore = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(index * 25).ToList();
+            var stringJson = JsonConvert.SerializeObject(articleMore);
+            return stringJson;
         }
         // public ActionResult CategoriesDetail(int? id)
         // {
