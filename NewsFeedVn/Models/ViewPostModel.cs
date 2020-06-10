@@ -9,6 +9,7 @@ namespace NewsFeedVn.Models
     {
         public Article Article { get; set; }
         public List<Article> ListArticle { get; set; }
+        public List<Article> LastestArticle { get; set; }
         public List<Comment> Comments { get; set; }
     }
 }
