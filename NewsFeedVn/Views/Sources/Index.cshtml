@@ -25,9 +25,24 @@
                 <div class="sparkline13-list">
                     <div class="sparkline13-hd">
                         <div class="main-sparkline13-hd">
+                            <!-- Image loader -->
+                            <div id='loader' style='display: none;'>
+                                <img src='https://i.ya-webdesign.com/images/transparent-gear-animated.gif' width='32px' height='32px'>
+                            </div>
+                            <!-- Image loader -->
                             <h1>Sources</h1>
                             <p>
-                                @Html.ActionLink("Create New", "Create")
+                                @Html.ActionLink("Create New", "AddNew")
+                            </p>
+                            <p>
+                                <button type="button" class="btn btn-primary activate-crawler" data-toggle="modal">
+                                    Run URL Crawlers
+                                </button>
+                            </p>
+                            <p>
+                                <button type="button" class="btn btn-primary activate-content-crawler" data-toggle="modal">
+                                    Run Content Crawlers
+                                </button>
                             </p>
                             <hr />
                         </div>
@@ -113,8 +128,112 @@
     ============================================ -->
     <script src="~/kiaalap-master/js/tab.js"></script>
     <script type="text/javascript">
+        $(document).ajaxStart(function(){
+            // Show image container
+            $("#loader").show();
+        });
+        $(document).ajaxComplete(function(){
+            // Hide image container
+            $("#loader").hide();
+        });
         $(document).ready(function() {
             var idArray = [];
+
+            $('.activate-crawler').click(function(event) {
+
+                event.preventDefault();
+
+//              console.log($('.source-domain').value);
+                // AJAX request
+                var request = $.ajax({
+                    url: 'https://dataservicesem3.azurewebsites.net/api/Service/StartGetUrl',
+                    type: 'GET',
+                    crossDomain: true
+                });
+
+                request.done(function(response) {
+                    console.log(response);
+                    console.log(jQuery.type(response));
+                });
+
+                request.fail(function(jqXHR, textStatus) {
+                    console.log( "Request failed: " + textStatus );
+                });
+//                $.ajax({
+//                    url: 'https://dataservicesem3.azurewebsites.net/api/Service/reviewurl',
+//                    type: 'POST',
+//                    crossDomain: true,
+//                    dataType: 'application/json',
+//                    data:
+//                    {
+//                        Domain: "https://vnexpress.net/",
+//                        Path: "kinh-doanh",
+//                        CategoryID: 1,
+//                        LinkSelector: "h3.title-news>a",
+//                        TitleSelector: "div.sidebar-1>h1.title-detail",
+//                        ContentSelector: "test",
+//                        DescriptionSelector: "div.sidebar-1>p.description",
+//                        RemovalSelector: "test",
+//                        Status: 1
+//                    },
+//                    success: function (response) {
+//                        Console.log(response);
+//                        // Add response in Modal body
+//                        $('.modal-body').html(response);
+//
+//                        // Display Modal
+//                        $('#myModal').modal('show');
+//                    }
+//                });
+            });
+
+            $('.activate-content-crawler').click(function(event) {
+
+                event.preventDefault();
+
+//              console.log($('.source-domain').value);
+                // AJAX request
+                var request = $.ajax({
+                    url: 'https://dataservicesem3.azurewebsites.net/api/Service/StartDataDetail',
+                    type: 'GET',
+                    crossDomain: true
+                });
+
+                request.done(function(response) {
+                    console.log(response);
+                    console.log(jQuery.type(response));
+                });
+
+                request.fail(function(jqXHR, textStatus) {
+                    console.log( "Request failed: " + textStatus );
+                });
+//                $.ajax({
+//                    url: 'https://dataservicesem3.azurewebsites.net/api/Service/reviewurl',
+//                    type: 'POST',
+//                    crossDomain: true,
+//                    dataType: 'application/json',
+//                    data:
+//                    {
+//                        Domain: "https://vnexpress.net/",
+//                        Path: "kinh-doanh",
+//                        CategoryID: 1,
+//                        LinkSelector: "h3.title-news>a",
+//                        TitleSelector: "div.sidebar-1>h1.title-detail",
+//                        ContentSelector: "test",
+//                        DescriptionSelector: "div.sidebar-1>p.description",
+//                        RemovalSelector: "test",
+//                        Status: 1
+//                    },
+//                    success: function (response) {
+//                        Console.log(response);
+//                        // Add response in Modal body
+//                        $('.modal-body').html(response);
+//
+//                        // Display Modal
+//                        $('#myModal').modal('show');
+//                    }
+//                });
+            });
 
             $("#deleteAll").click(function() {
                 var myRows = document.querySelectorAll("tr.selected");
