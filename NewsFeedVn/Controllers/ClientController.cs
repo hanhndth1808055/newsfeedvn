@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,30 +16,34 @@ namespace NewsFeedVn.Controllers
         // GET: Client
         public ActionResult Home()
         {
+            var LastestArticle = getLastestArticle();
             ViewHomeModel viewHomeModel = new ViewHomeModel() { 
-                SlideArticle = db.Articles.Where(p => (int) p.Status == 2).Take(3).ToList(),
-                SimilarPostSlide = db.Articles.Where(p => (int)p.Status == 2).Take(9).ToList(),
+                SlideArticle = db.Articles.Where(p => (int) p.Status == 2 && p.Img != null && p.Img != " ").Take(3).ToList(),
+                SimilarPostSlide = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(9).ToList(),
                 Categories = db.Categories.ToList(),
-                TopStories = db.Articles.Where(p => (int)p.Status == 2).Take(12).ToList(),
-                DontMiss = db.Articles.Where(p => (int)p.Status == 2).Take(8).ToList(),
-                WhatsTrending = db.Articles.Where(p => (int)p.Status == 2).Take(7).ToList(),
-                LastestArticle = db.Articles.Where(p => (int)p.Status == 2).Take(11).ToList(),
+                TopStories = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(12).ToList(),
+                DontMiss = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(8).ToList(),
+                WhatsTrending = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(7).ToList(),
+                LastestArticle = LastestArticle,
             };
             ViewBag.MenuHeaderActive = "Home";
             return View(viewHomeModel);
         }
+        
         public ActionResult Search(string keyword)
         {
             ViewCategoryModel viewCategories;
+            var LastestArticle = getLastestArticle();
             var articles = db.Articles.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
-                articles = articles.Where(p => (int)p.Status == 2).Where(a => a.Content.Contains(keyword) || a.Title.Contains(keyword) || a.Description.Contains(keyword));
+                articles = articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Where(a => a.Content.Contains(keyword) || a.Title.Contains(keyword) || a.Description.Contains(keyword));
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
                     Articles = articles.ToList(),
-                    SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
+                    SameArticles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = 0;
             }
@@ -47,7 +52,8 @@ namespace NewsFeedVn.Controllers
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    SameArticles = db.Articles.OrderBy(a => a.CreatedAt).Take(12).ToList()
+                    SameArticles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    LastestArticle = LastestArticle
                 };
             }
             return View(viewCategories);
@@ -69,19 +75,58 @@ namespace NewsFeedVn.Controllers
             {
                 return HttpNotFound();
             }
-            var listArticle = db.Articles.Where(p => (int)p.Status == 2).Where( a => a.CategoryID == article.CategoryID).Take(12);
+
+            var LastestArticle = getLastestArticle();
+            var check = true;
+            foreach (var item in LastestArticle)
+            {
+                if (item.Id == article.Id)
+                {
+                    check = false;
+                    break;
+                }
+            }
+            if (check == true)
+            {
+                LastestArticle.Insert(0, article);
+                setLastestArticle(LastestArticle);
+            }
+
+            var listArticle = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Where( a => a.CategoryID == article.CategoryID).Take(12);
             var comment = db.Comments.Where(c => c.ArticleID == article.Id);
 
-            var viewModel = new ViewPostModel() {
+            var viewModel = new ViewPostModel()
+            {
                 Article = article,
                 Comments = comment.ToList(),
-                ListArticle = listArticle.ToList()
+                ListArticle = listArticle.ToList(),
+                LastestArticle = LastestArticle
             };
+
             return View("~/Views/Client/Post.cshtml", viewModel);
+        }
+        public List<Article> getLastestArticle()
+        {
+            List<Article> LastestArticle = null;
+            if (Session["LastestArticle"] != null)
+            {
+                LastestArticle = Session["LastestArticle"] as List<Article>;
+            }
+            if (Session["LastestArticle"] == null)
+            {
+                LastestArticle = new List<Article>();
+            }
+            return LastestArticle;
+        }
+
+        public void setLastestArticle(List<Article> LastestArticle)
+        {
+            Session["LastestArticle"] = LastestArticle;
         }
         public ActionResult CategoriesIndex(int? id)
         {
             ViewCategoryModel viewCategories;
+            var LastestArticle = getLastestArticle();
             if (id != null)
             {
                 var Categories = db.Categories.ToList();
@@ -97,8 +142,9 @@ namespace NewsFeedVn.Controllers
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = Categories,
-                    Articles = db.Articles.Where(a => a.CategoryID == id).Take(25).ToList(),
-                    SameArticles = db.Articles.Where(a => a.CategoryID == id).OrderBy(a => a.CreatedAt).Take(12).ToList()
+                    Articles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(25).ToList(),
+                    SameArticles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = id;
             }
@@ -107,8 +153,9 @@ namespace NewsFeedVn.Controllers
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    Articles = db.Articles.Where(a => a.CategoryID == id).Take(25).ToList(),
-                    SameArticles = db.Articles.Where(a => a.CategoryID == id).OrderBy(a => a.CreatedAt).Take(12).ToList()
+                    Articles = db.Articles.Where( a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(25).ToList(),
+                    SameArticles = db.Articles.Where( a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = 0;
             }
