@@ -22,7 +22,7 @@ namespace NewsFeedVn.Controllers
                 SlideArticle = db.Articles.Where(p => (int) p.Status == 2 && p.Img != null && p.Img != " ").Take(3).ToList(),
                 SimilarPostSlide = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(9).ToList(),
                 Categories = db.Categories.ToList(),
-                TopStories = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(12).ToList(),
+                TopStories = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").OrderByDescending(a => a.Count).Take(12).ToList(),
                 DontMiss = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(8).ToList(),
                 WhatsTrending = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Take(7).ToList(),
                 LastestArticle = LastestArticle,
@@ -43,7 +43,7 @@ namespace NewsFeedVn.Controllers
                 {
                     Categories = db.Categories.ToList(),
                     Articles = articles.ToList(),
-                    SameArticles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    SameArticles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).OrderByDescending(a => a.Count).Take(12).ToList(),
                     LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = 0;
@@ -53,7 +53,7 @@ namespace NewsFeedVn.Controllers
                 viewCategories = new ViewCategoryModel()
                 {
                     Categories = db.Categories.ToList(),
-                    SameArticles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    SameArticles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).OrderByDescending(a => a.Count).Take(12).ToList(),
                     LastestArticle = LastestArticle
                 };
             }
@@ -93,7 +93,7 @@ namespace NewsFeedVn.Controllers
                 setLastestArticle(LastestArticle);
             }
 
-            var listArticle = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").Where( a => a.CategoryID == article.CategoryID).Take(12);
+            var listArticle = db.Articles.Where(p => (int)p.Status == 2 && p.Img != null && p.Img != " ").OrderByDescending(a => a.Count).Take(12);
             var comment = db.Comments.Where(c => c.ArticleID == article.Id);
 
             var viewModel = new ViewPostModel()
@@ -103,6 +103,10 @@ namespace NewsFeedVn.Controllers
                 ListArticle = listArticle.ToList(),
                 LastestArticle = LastestArticle
             };
+
+            article.Count++;
+            db.Entry(article).State = EntityState.Modified;
+            db.SaveChanges();
 
             return View("~/Views/Client/Post.cshtml", viewModel);
         }
@@ -146,7 +150,7 @@ namespace NewsFeedVn.Controllers
                 {
                     Categories = Categories,
                     Articles = articles,
-                    SameArticles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    SameArticles = db.Articles.Where(a => a.CategoryID == id && (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).OrderByDescending(a => a.Count).Take(12).ToList(),
                     LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = id;
@@ -158,7 +162,7 @@ namespace NewsFeedVn.Controllers
                 {
                     Categories = db.Categories.ToList(),
                     Articles = articles,
-                    SameArticles = db.Articles.Where( a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).Take(12).ToList(),
+                    SameArticles = db.Articles.Where( a => (int)a.Status == 2 && a.Img != null && a.Img != " ").OrderBy(a => a.CreatedAt).OrderByDescending(a => a.Count).Take(12).ToList(),
                     LastestArticle = LastestArticle
                 };
                 ViewBag.CategoryId = 0;
