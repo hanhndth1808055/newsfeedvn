@@ -453,6 +453,7 @@
     <Content Include="Views\QuestionAndAnswers\Edit.cshtml" />
     <Content Include="Views\QuestionAndAnswers\Delete.cshtml" />
     <Content Include="Views\Client\SendQuestion.cshtml" />
+    <Content Include="Views\Client\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

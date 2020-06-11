@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Client/Layout/_Layout.cshtml";
+}
+
+@section AddCss{
+    <link rel="stylesheet" type="text/css" href="~/avision/styles/contact.css">
+    <link rel="stylesheet" type="text/css" href="~/avision/styles/contact_responsive.css">
+}
+
+<!-- Home -->
+
+<div class="home">
+    <div class="home_background parallax-window" data-parallax="scroll" data-image-src="../../avision/images/regular.jpg" data-speed="0.8"></div>
+    <div class="home_content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <!-- Post Comment -->
+                    <div class="post_comment">
+                        <div class="contact_form_container">
+                            <h3 class="text-center" style="color: green;">Contact Our Newsroom</h3>
+                            <br>
+                            <h4 class="text-center" style="    font-family: 'Work Sans', sans-serif;">Send a Confidential News Tip</h4>
+                            <p>
+                                If you have a confidential news tip, you can reach us through tools that will help protect your anonymity.
+                            </p>
+                            <h4 class="text-center" style="    font-family: 'Work Sans', sans-serif;}">
+                                Report a Correction or Share Feedback
+                            </h4>
+                            <p>
+                                To report errors regarding our coverage email us at nytnews@nytimes.com or leave a message at 844-NYTNEWS (844-698-6397). 
+                            </p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Addscripts{
+    <script src="~/avision/plugins/parallax-js-master/parallax.min.js"></script>
+    <script src="~/avision/js/contact.js"></script>
+}
+
