@@ -30,7 +30,12 @@ namespace NewsFeedVn.Controllers
             ViewBag.MenuHeaderActive = "Home";
             return View(viewHomeModel);
         }
-        
+
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
         public ActionResult Search(string keyword)
         {
             ViewCategoryModel viewCategories;
