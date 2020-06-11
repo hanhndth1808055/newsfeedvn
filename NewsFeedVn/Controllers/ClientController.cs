@@ -128,7 +128,7 @@ namespace NewsFeedVn.Controllers
         {
             Session["LastestArticle"] = LastestArticle;
         }
-        public ActionResult CategoriesIndex(int? id, int? index)
+        public ActionResult CategoriesIndex(int? id)
         {
             ViewCategoryModel viewCategories;
             List<Article> articles = null;
@@ -167,23 +167,22 @@ namespace NewsFeedVn.Controllers
                 };
                 ViewBag.CategoryId = 0;
             }
-            if (index != null)
-            {
-                articles = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(index.Value * 25).ToList();
-                viewCategories.Articles = articles;
-                ViewBag.Index = index;
-            }
-            else
-            {
-                ViewBag.Index = 2;
-            }
             ViewBag.MenuHeaderActive = "Categories";
             return View("~/Views/Client/Category.cshtml", viewCategories);
         }
-        public string AjaxCategoriesIndex(int index)
+        public string AjaxCategoriesIndex(int index, int? id)
         {
-            var articleMore = db.Articles.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(index * 25).ToList();
-            var stringJson = JsonConvert.SerializeObject(articleMore);
+            var articleMore = db.Articles.AsQueryable();
+            if (id != null && id != 0)
+            {
+                articleMore = articleMore.Where(a => (int)a.Status == 2 && a.CategoryID == id && a.Img != null && a.Img != " ").Take(index * 25);
+            }
+            else
+            {
+                articleMore = articleMore.Where(a => (int)a.Status == 2 && a.Img != null && a.Img != " ").Take(index * 25);
+            }
+            
+            var stringJson = JsonConvert.SerializeObject(articleMore.ToList());
             return stringJson;
         }
         // public ActionResult CategoriesDetail(int? id)

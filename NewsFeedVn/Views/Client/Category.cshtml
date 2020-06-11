@@ -2,8 +2,6 @@
 @{
     ViewBag.Title = "Category";
     Layout = "~/Views/Client/Layout/_Layout.cshtml";
-    var index = (int)ViewBag.Index;
-    index++;
 }
 
 @section AddCss{
@@ -35,20 +33,20 @@
                             <div class="section_title">Don't Miss</div>
                             <div class="section_tags ml-auto">
                                 <ul>
-                                    <li @{ if (ViewBag.CategoryId == 0) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex">all</a></li>
+                                    <li @{ if (ViewBag.CategoryId == 0) { @Html.Raw("class='active'") ; } }><a href="/Client/CategoriesIndex">all</a></li>
                                     @{
                                         if (Model.Categories.Count > 0 && Model.Categories.Count < 4)
                                         {
                                             for (int i = 0; i < Model.Categories.Count; i++)
                                             {
-                                                <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
+                                                <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'") ; } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
                                             }
                                         }
-                                        else if(Model.Categories.Count > 4)
+                                        else if (Model.Categories.Count > 4)
                                         {
                                             for (int i = 0; i < 4; i++)
                                             {
-                                                <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
+                                                <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'") ; } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
                                             }
                                         }
                                     }
@@ -64,7 +62,7 @@
                                                 {
                                                     for (int i = 4; i < Model.Categories.Count; i++)
                                                     {
-                                                        <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'"); } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
+                                                        <li @{ if (ViewBag.CategoryId == Model.Categories[i].Id) { @Html.Raw("class='active'") ; } }><a href="/Client/CategoriesIndex?id=@Model.Categories[i].Id">@Model.Categories[i].Name</a></li>
                                                     }
                                                 }
                                             }
@@ -74,7 +72,7 @@
                             </div>
                         </div>
                         <div class="section_content">
-                            <div id="article" class="grid clearfix">
+                            <div id="content-post" class="grid clearfix">
                                 @{
                                     if (Model.Articles.Count > 0)
                                     {
@@ -132,7 +130,7 @@
 
                 </div>
                 <div class="load_more">
-                    <div id="load_more" class="load_more_button text-center trans_200"><a href="/Client/CategoriesIndex?id=@ViewBag.CategoryId&index=@index">Load More</a></div>
+                    <div id="load_more" class="load_more_button text-center trans_200">Load More</div>
                 </div>
             </div>
 
@@ -156,6 +154,10 @@
 
 
 
+
+
+
+
                                         </svg>
                                     </div>
                                     <ul id="custom_dots" class="custom_dots custom_dots_top">
@@ -167,6 +169,10 @@
                                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                              width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                         <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
+
+
+
+
 
 
 
@@ -242,6 +248,7 @@
                                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                                 <polyline fill="#bebebe" points="0,5.61 5.609,0 7,0 7,1.438 2.438,6 7,10.563 7,12 5.609,12 -0.002,6.39 " />
+
                                                 </svg>
                                             </div>
                                             <ul id="custom_dots" class="custom_dots custom_dots_top">
@@ -253,6 +260,7 @@
                                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                      width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
                                                 <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 " />
+
                                                 </svg>
                                             </div>
                                         </div>
@@ -349,44 +357,74 @@
     <script>
 
 
-        var index = 2;
+
         $(document).ready(function () {
-            //$("#load_more").click(function (e) {
-            //    e.isDefaultPrevented;
-            //    $.ajax({
-            //        url: "/Client/AjaxCategoriesIndex?index=" + index,
-            //        method: 'GET'
-            //    }).done(function (response) {
-            //        console.log(response);
-            //        var html = "";
-            //        var list = JSON.parse(response)
-            //        for (var i = 0; i < list.length; i++) {
-            //            if (i % 2 == 0) {
-            //                html += '<!-- Small Card With Image 0-->';
-            //                html += '<div class="card card_small_with_image grid-item">';
-            //                html += '<img class="card-img-top" src="' + list[i].Img + '" alt="">';
-            //                html += '<div class="card-body">';
-            //                html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
-            //                html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt +'</span></small>';
-            //                html += '</div>';
-            //                html += '</div>';
-            //            } else if (i % 3 == 0 && i % 2 != 0 && i % 5 != 0) {
-            //                html += '<!-- Small Card Without Image 1-->';
-            //                html += '<div class="card card_default card_small_no_image grid-item">';
-            //                html += '<div class="card-body">';
-            //                html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
-            //                html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt + '</span></small>';
-            //                html += '</div>';
-            //                html += '</div>';
-            //            } else if (i % 5 == 0 && i % 2 != 0 && i % 7 != 0) {
+            initGrid()
+            var index = 2;
+            $("#load_more").click(function (e) {
+                $.ajax({
+                    url: "/Client/AjaxCategoriesIndex?id="+@ViewBag.CategoryId+"&index=" + index,
+                    method: 'GET'
+                }).done(function (response) {
+                    var html = "";
+                    var list = JSON.parse(response)
+                    for (var i = 0; i < list.length; i++) {
+                        if (i % 2 == 0) {
+                            html += '<!-- Small Card With Image 0-->';
+                            html += '<div class="card card_small_with_image grid-item">';
+                            html += '<img class="card-img-top" src="' + list[i].Img + '" alt="">';
+                            html += '<div class="card-body">';
+                            html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
+                            html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt + '</span></small>';
+                            html += '</div>';
+                            html += '</div>';
+                        } else if (i % 3 == 0 && i % 2 != 0 && i % 5 != 0) {
+                            html += '<!-- Small Card Without Image 1-->';
+                            html += '<div class="card card_default card_small_no_image grid-item">';
+                            html += '<div class="card-body">';
+                            html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
+                            html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt + '</span></small>';
+                            html += '</div>';
+                            html += '</div>';
+                        } else if (i % 5 == 0 && i % 2 != 0 && i % 7 != 0) {
+                            html += '<!-- Small Card With Background 4-->';
+                            html += '<div class="card card_default card_small_with_background grid-item">';
+                            html += '<div class="card_background" style="background-image:url(' + list[i].Img + ')"></div>';
+                            html += '<div class="card-body">';
+                            html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
+                            html += '<small class="post_meta"><a href="#">Katy Liu</a><span>' + list[i].CreatedAt + '</span></small>';
+                            html += '</div>';
+                            html += '</div>';
+                        } else {
+                            html += '<!-- Default Card With Background 9-->';
+                            html += '<div class="card card_default card_default_with_background grid-item">';
+                            html += '<div class="card_background" style="background-image:url(' + list[i].Img + ')"></div>';
+                            html += '<div class="card-body">';
+                            html += '<div class="card-title card-title-small"><a href="/Client/Post?id=' + list[i].Id + '">' + list[i].Title + '</a></div>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                    }
+                    //$(".grid").html(html);
+                    if (html !== "") {
+                        console.log(html)
+                        var $content = $( html );
+                        jQuery("#content-post").append($content).masonry('appended', $content);
+                    }
+                    index++;
+                });
+            });
 
-            //            } else {
-
-            //            }
-            //        }
-            //        $("#article").html(html);
-            //    });
-            //});
+            function initGrid() {
+                setTimeout(function () {
+                    $('.grid').masonry(
+                        {
+                            itemSelector: '.grid-item',
+                            columnWidth: '.card_default',
+                            gutter: 30
+                        });
+                }, 1000);
+            }
         });
     </script>
 }
