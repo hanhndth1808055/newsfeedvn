@@ -306,11 +306,13 @@
     <Content Include="avision\styles\category_responsive.css" />
     <Content Include="avision\styles\contact.css" />
     <Content Include="avision\styles\contact_responsive.css" />
+    <Content Include="avision\styles\login.css" />
     <Content Include="avision\styles\main_styles.css" />
     <Content Include="avision\styles\post.css" />
     <Content Include="avision\styles\post_nosidebar.css" />
     <Content Include="avision\styles\post_nosidebar_responsive.css" />
     <Content Include="avision\styles\post_responsive.css" />
+    <Content Include="avision\styles\register.css" />
     <Content Include="avision\styles\regular.css" />
     <Content Include="avision\styles\regular_responsive.css" />
     <Content Include="avision\styles\responsive.css" />
