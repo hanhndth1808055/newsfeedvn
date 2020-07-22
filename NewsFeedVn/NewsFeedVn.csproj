@@ -206,6 +206,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404\404.html" />
     <Content Include="avision\category.html" />
     <Content Include="avision\contact.html" />
     <Content Include="avision\images\arrow_d.png" />
@@ -359,6 +360,10 @@
     <Content Include="avision\plugins\font-awesome-4.7.0\scss\_screen-reader.scss" />
     <Content Include="avision\plugins\font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="avision\plugins\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\NewsFeedVn - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\NewsFeedVn1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\NewsFeedVn1 - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\NewsFeedVn1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
